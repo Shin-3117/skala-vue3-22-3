@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from 'vue'
-
+import { Badge } from '@/components/ui/badge/index.js'
 const props = defineProps(['temp'])
 
 const temperatureLabel = computed(() => {
@@ -8,21 +8,7 @@ const temperatureLabel = computed(() => {
 })
 </script>
 <template>
-  <div class="weather-badge">
-    <p class="label">{{ temperatureLabel }}</p>
-  </div>
+  <Badge :class="props.temp >= 25 ? 'bg-red-500 text-white' : 'bg-blue-500 text-white'">
+    {{ temperatureLabel }}
+  </Badge>
 </template>
-
-<style scoped>
-.weather-badge {
-  border: 1px solid #ccc;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  display: flex;
-  gap: 1rem;
-}
-
-.label {
-  font-weight: 700;
-}
-</style>

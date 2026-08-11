@@ -1,9 +1,9 @@
 <script setup>
-import WeatherMockup from './components/handsOn/WeatherMockup.vue'
+import { RouterView } from 'vue-router'
 </script>
 
 <template>
-  <WeatherMockup />
+  <RouterView />
 </template>
 
 <style scoped></style>

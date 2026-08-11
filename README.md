@@ -42,3 +42,8 @@ npm run build
 ```sh
 npm run lint
 ```
+
+# 프로젝트 설명
+
+tailwindcss 추가
+shadcn-vue 추가

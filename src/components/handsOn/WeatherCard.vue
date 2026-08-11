@@ -10,12 +10,19 @@ import {
 } from '@/components/ui/card/index.js'
 
 const props = defineProps(['name', 'temp', 'status'])
+const emit = defineEmits(['select-city'])
+
+const handleSelect = () => {
+  emit('select-city', props.name)
+}
+
 const showDetail = (cityName, status) => {
+  emit('select-city', cityName)
   window.alert(`${cityName}의 현재 날씨는 [${status}] 상태입니다.`)
 }
 </script>
 <template>
-  <Card>
+  <Card class="cursor-pointer" @click="handleSelect">
     <CardHeader>
       <CardTitle>{{ props.name }}</CardTitle>
       <CardDescription><WeatherBadge :temp="props.temp" /></CardDescription>

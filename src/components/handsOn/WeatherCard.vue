@@ -12,12 +12,14 @@ import {
 const props = defineProps(['name', 'temp', 'status'])
 const emit = defineEmits(['select-city'])
 
-const handleSelect = () => {
+const handleSelect = (event) => {
+  if (event?.target?.closest('button')) {
+    return
+  }
   emit('select-city', props.name)
 }
 
 const showDetail = (cityName, status) => {
-  emit('select-city', cityName)
   window.alert(`${cityName}의 현재 날씨는 [${status}] 상태입니다.`)
 }
 </script>
@@ -30,7 +32,7 @@ const showDetail = (cityName, status) => {
     <CardContent>
       <p>온도: {{ props.temp }}°C</p>
       <p>날씨: {{ props.status }}</p>
-      <Button variant="outline" @click.stop="showDetail(props.name, props.status)">상세보기</Button>
+      <Button @click.stop="showDetail(props.name, props.status)">상세보기</Button>
     </CardContent>
   </Card>
 </template>

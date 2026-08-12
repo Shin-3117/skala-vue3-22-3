@@ -1,8 +1,18 @@
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useConfigStore = defineStore('config',()=>{
   const unit = ref('celsius')
+
+  const isFahrenheit = computed(() => unit.value === 'fahrenheit')
+
+  function getTemp(temp) {
+    if (unit.value === 'celsius') {
+      return temp
+    } else {
+      return Math.round((temp * 9) / 5 + 32)
+    }
+  }
   function unitSymbol() {
     if (unit.value === 'celsius') {
       return '℃'
@@ -10,7 +20,7 @@ export const useConfigStore = defineStore('config',()=>{
       return '℉'
     }
   }
-  function toggleUnit(){
+  function toggleUnit() {
     if (unit.value === 'celsius') {
       unit.value = 'fahrenheit'
     } else {
@@ -18,8 +28,50 @@ export const useConfigStore = defineStore('config',()=>{
     }
   }
 
-  const theme = ref('system') //화면 모드
+  const theme = ref('system') // 화면모드: 'light' | 'dark' | 'system'
 
+  const isDarkMode = computed(() => {
+    if (theme.value === 'dark') {
+      return true
+    }
 
-  return { unitSymbol, toggleUnit }
+    if (theme.value === 'light') {
+      return false
+    }
+
+    return window.matchMedia('(prefers-color-scheme: dark)').matches
+  })
+
+  function applyTheme() {
+    document.documentElement.classList.toggle('dark', isDarkMode.value)
+  }
+
+  function setTheme(nextTheme) {
+    theme.value = nextTheme
+    applyTheme()
+  }
+
+  function toggleTheme() {
+    if (theme.value === 'dark') {
+      setTheme('light')
+    } else {
+      setTheme('dark')
+    }
+  }
+
+  watch(theme, applyTheme)
+
+  applyTheme()
+
+  return {
+    unit,
+    theme,
+    isFahrenheit,
+    isDarkMode,
+    getTemp,
+    unitSymbol,
+    toggleUnit,
+    setTheme,
+    toggleTheme,
+  }
 })

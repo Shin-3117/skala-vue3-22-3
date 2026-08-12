@@ -2,6 +2,7 @@
 import { onMounted, ref, watch } from 'vue'
 import { Card } from '@/components/ui/card/index.js'
 import mapSvg from './map.svg?raw'
+import { Map, MapPin, Navigation } from '@lucide/vue'
 
 const emit = defineEmits(['select-region'])
 const props = defineProps({ selectedCity: { type: String, default: '' } })
@@ -39,6 +40,7 @@ const updateActiveRegion = (regionName) => {
     path.classList.toggle('is-active', isActive)
   })
 }
+
 // 선택한 도시 변경시 watch로 지도 선택 변경
 watch(() => props.selectedCity, updateActiveRegion)
 
@@ -73,11 +75,25 @@ onMounted(() => {
 </script>
 
 <template>
-  <Card class="map-card">
-    <div class="selection-panel">
-      <p v-if="props.selectedCity">선택한 지역: {{ props.selectedCity }}</p>
-      <p v-else>지도 위의 지역을 클릭해보세요.</p>
+  <Card class="map-card glass-card border border-slate-200 rounded-2xl bg-white/80">
+    <div class="selection-panel flex items-center justify-between">
+      <div class="flex items-center gap-2 text-sm font-bold text-slate-800">
+        <Map class="w-4 h-4 text-sky-600" />
+        <span v-if="props.selectedCity" class="text-sky-700 flex items-center gap-1">
+          <MapPin class="w-4 h-4 text-amber-500 " />
+          <span class="font-extrabold text-slate-900">{{ props.selectedCity }}</span> 선택됨
+        </span>
+        <span v-else class="text-slate-500 flex items-center gap-1.5 font-medium">
+          <Navigation class="w-4 h-4 text-sky-500 " />
+          지도의 지역을 클릭해보세요.
+        </span>
+      </div>
+
+      <div v-if="props.selectedCity" class="text-xs font-semibold text-slate-500 bg-sky-50 px-2.5 rounded-lg border border-sky-100">
+        다시 클릭 시 해제
+      </div>
     </div>
+
     <div ref="svgWrapper" class="map-wrapper" v-html="mapSvg" />
   </Card>
 </template>
@@ -86,56 +102,59 @@ onMounted(() => {
 .map-card {
   width: 100%;
   max-width: 700px;
-  /* 높이 기준값은 style.css의 :root에 선언되어 있습니다. */
   height: var(--panel-height);
   padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 12px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
 }
 
 /* 남은 공간만큼만 지도를 그려서 카드 높이가 늘어나지 않게 합니다. */
 .map-wrapper {
   flex: 1;
   min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .map-wrapper :deep(svg) {
   display: block;
   width: 100%;
   height: 100%;
-  border-radius: 12px;
+  border-radius: 16px;
+  filter: drop-shadow(0 4px 12px rgba(14, 165, 233, 0.08));
 }
 
 .map-wrapper :deep(.map-path) {
   cursor: pointer;
-  fill: #e5e7eb;
-  stroke: #64748b;
+  fill: #e2e8f0;
+  stroke: #94a3b8;
   stroke-width: 1.2;
-  transition:
-    fill 0.2s ease,
-    stroke 0.2s ease,
-    stroke-width 0.2s ease;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .map-wrapper :deep(.map-path:hover),
 .map-wrapper :deep(.map-path.is-hovered) {
-  fill: #fbbf24;
-  stroke: #92400e;
-  stroke-width: 1.8;
+  fill: #38bdf8;
+  stroke: #0284c7;
+  stroke-width: 2;
+  filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.5));
 }
 
 .map-wrapper :deep(.map-path.is-active) {
-  fill: #fb923c;
-  stroke: #9a2c2c;
-  stroke-width: 2.2;
+  fill: #f59e0b;
+  stroke: #d97706;
+  stroke-width: 2.5;
+  filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.7));
 }
 
 .selection-panel {
-  padding: 10px 12px;
-  border-radius: 10px;
-  background: #f8fafc;
-  color: #334155;
-  font-weight: 600;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: rgba(241, 245, 249, 0.9);
+  border: 1px solid rgba(226, 232, 240, 0.9);
 }
 </style>

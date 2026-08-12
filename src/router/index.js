@@ -10,12 +10,20 @@ const router = createRouter({
       component: WeatherView,
     },
     {
+      path: '/weather/:cityId',
+      name: 'weather-detail',
+      component: () => import('@/views/WeatherDetailView.vue'),
+      props: true,
+    },
+    {
       path: '/test',
       name: 'test',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('@/views/TestView.vue'),
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'not-found',
+      component: () => import('@/views/NotFoundView.vue'),
     },
   ],
 })

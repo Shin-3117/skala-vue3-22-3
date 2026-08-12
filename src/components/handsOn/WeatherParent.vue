@@ -1,36 +1,32 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import HeaderNav from './HeaderNav.vue'
+import HeroWeatherBanner from './HeroWeatherBanner.vue'
 import BaseDashboardCard from './BaseDashboardCard.vue'
 import SearchBar from './SearchBar.vue'
 import WeatherList from './WeatherList.vue'
 import KoreaMap from './KoreaMap.vue'
+import { weatherDataList } from '@/data/weatherData.js'
+import { Info } from '@lucide/vue'
 
 const searchQuery = ref('')
 const selectedCityInfo = ref('')
-const weatherList = ref([
-  { id: 'city_01', name: '서울', temp: 28, status: '맑음' },
-  { id: 'city_02', name: '부산', temp: 24, status: '구름많음' },
-  { id: 'city_03', name: '대구', temp: 31, status: '맑음' },
-  { id: 'city_04', name: '인천', temp: 27, status: '맑음' },
-  { id: 'city_05', name: '광주', temp: 29, status: '비' },
-  { id: 'city_06', name: '대전', temp: 28, status: '맑음' },
-  { id: 'city_07', name: '울산', temp: 27, status: '구름많음' },
-  { id: 'city_08', name: '세종', temp: 28, status: '맑음' },
-  { id: 'city_09', name: '경기', temp: 27, status: '흐림' },
-  { id: 'city_10', name: '충북', temp: 29, status: '맑음' },
-  { id: 'city_11', name: '충남', temp: 28, status: '구름많음' },
-  { id: 'city_12', name: '전북', temp: 29, status: '비' },
-  { id: 'city_13', name: '전남', temp: 30, status: '흐림' },
-  { id: 'city_14', name: '경북', temp: 30, status: '맑음' },
-  { id: 'city_15', name: '경남', temp: 28, status: '구름많음' },
-  { id: 'city_16', name: '제주', temp: 24, status: '소나기' },
-  { id: 'city_17', name: '강원', temp: 23, status: '흐림' },
-])
+const statusFilter = ref('ALL')
 
-// 목록/지도 공통 선택 처리. 이미 선택된 항목을 다시 선택하면 선택을 해제합니다.
+const weatherList = ref(weatherDataList)
+
+const featuredCity = computed(() => {
+  if (selectedCityInfo.value) {
+    const found = weatherList.value.find((c) => c.name === selectedCityInfo.value)
+    if (found) return found
+  }
+  return weatherList.value[0] // 기본값: 서울
+})
+
+// 목록/지도 공통 선택 처리
 const toggleSelection = (name) => {
   const isAlreadySelected = selectedCityInfo.value === name
-
+  statusFilter.value = 'ALL' // 선택 시 필터 초기화
   selectedCityInfo.value = isAlreadySelected ? '' : name
   searchQuery.value = isAlreadySelected ? '' : name
 }
@@ -42,43 +38,80 @@ const handleUpdateQuery = (query) => {
   }
 }
 
-// watchEffect(() => {
-//   console.log('watchEffect:', {
-//     searchQuery: searchQuery.value,
-//     selectedCityInfo: selectedCityInfo.value,
-//     listCount: weatherList.value.length,
-//     filteredCount: filteredWeatherList.value.length,
-//   })
-// })
+const handleFilterStatus = (filterKey) => {
+  statusFilter.value = filterKey
+  selectedCityInfo.value = ''
+  searchQuery.value = ''
+}
 </script>
 
 <template>
-  <article class="max-w-6xl mx-auto flex flex-col gap-8 p-6 md:p-10">
-    <header class="mb-4">
-      <h1 class="text-3xl font-bold text-gray-900">날씨 대시보드</h1>
-      <p class="text-gray-600 mt-2">전국 주요 도시의 날씨 정보를 확인하세요.</p>
-    </header>
+  <div class="min-h-screen bg-sky-50/50 text-slate-800 py-8 px-4 sm:px-6 lg:px-10">
+    <article class="max-w-7xl mx-auto flex flex-col gap-6">
+      <!-- 1. Global Header Navigation -->
+      <HeaderNav />
 
-    <BaseDashboardCard title="날씨 검색" description="조회하고 싶은 도시를 입력하세요.">
-      <SearchBar :search-query="searchQuery" @update-query="handleUpdateQuery" />
-      <div class="mt-4 p-4 bg-gray-50 rounded-lg text-sm text-gray-700">
-        선택한 도시: <span class="font-semibold text-blue-600">{{ selectedCityInfo || '없음' }}</span>
-      </div>
-    </BaseDashboardCard>
+      <!-- 2. Hero Featured Weather Banner -->
+      <HeroWeatherBanner
+        :featured-city="featuredCity"
+        :status-filter="statusFilter"
+        @filter-status="handleFilterStatus"
+      />
 
-    <BaseDashboardCard
-      title="지역별 날씨"
-      description="지도에서 선택하거나 목록에서 도시를 선택하세요."
-    >
-      <section class="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <KoreaMap :selected-city="selectedCityInfo" @select-region="toggleSelection" />
-        <WeatherList
-          :weather-list="weatherList"
-          :search-query="searchQuery"
-          :selected-city="selectedCityInfo"
-          @select-city="toggleSelection"
-        />
-      </section>
-    </BaseDashboardCard>
-  </article>
+      <!-- 3. Weather Search Section -->
+      <BaseDashboardCard
+        title="날씨 빠른 검색"
+        description="전국 주요 도시 또는 한글 초성(ㅅㅇ, ㅂㅅ 등)을 입력하여 날씨를 실시간 조회하세요."
+      >
+        <SearchBar :search-query="searchQuery" @update-query="handleUpdateQuery" />
+
+        <div class="mt-4 p-4 rounded-2xl bg-white/90 border border-slate-200 flex items-center justify-between text-xs sm:text-sm font-medium">
+          <div class="flex items-center gap-2 text-slate-600">
+            <Info class="w-4 h-4 text-sky-600" />
+            <span>선택된 도시:</span>
+            <span class="font-bold text-sky-700 px-2.5 py-0.5 rounded-lg bg-sky-100 border border-sky-200">
+              {{ selectedCityInfo || '선택 없음 (전체 보기)' }}
+            </span>
+          </div>
+
+          <button
+            v-if="selectedCityInfo || searchQuery"
+            @click="toggleSelection(selectedCityInfo)"
+            class="text-xs text-slate-500 hover:text-slate-800 underline cursor-pointer font-bold"
+          >
+            선택 초기화
+          </button>
+        </div>
+      </BaseDashboardCard>
+
+      <!-- 4. Regional Map & List Grid -->
+      <BaseDashboardCard
+        title="대한민국 인터랙티브 지역별 날씨"
+        description="지도에서 지역을 직접 클릭하거나 도시 목록에서 선택 후 '상세 페이지' 버튼을 누르시면 동적 상세 페이지로 이동합니다."
+      >
+        <section class="grid grid-cols-1 gap-6 lg:grid-cols-2">
+          <KoreaMap :selected-city="selectedCityInfo" @select-region="toggleSelection" />
+          <WeatherList
+            :weather-list="weatherList"
+            :search-query="searchQuery"
+            :selected-city="selectedCityInfo"
+            :status-filter="statusFilter"
+            @select-city="toggleSelection"
+          />
+        </section>
+      </BaseDashboardCard>
+
+      <!-- 5. Footer -->
+      <footer class="mt-8 pt-6 border-t border-slate-200 text-center text-xs text-slate-500 font-medium flex flex-col sm:flex-row items-center justify-between gap-2">
+        <p>© 2026 SkyCast Weather Intelligence. 모든 기상 정보는 실시간 갱신됩니다.</p>
+        <div class="flex items-center gap-4">
+          <span class="hover:text-slate-700 cursor-pointer">기상청 연동</span>
+          <span>·</span>
+          <span class="hover:text-slate-700 cursor-pointer">개인정보 처리방침</span>
+          <span>·</span>
+          <span class="hover:text-slate-700 cursor-pointer">도움말</span>
+        </div>
+      </footer>
+    </article>
+  </div>
 </template>

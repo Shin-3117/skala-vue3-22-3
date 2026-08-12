@@ -72,8 +72,7 @@ const handleUpdateQuery = (query) => {
       title="지역별 날씨"
       description="지도에서 선택하거나 목록에서 도시를 선택하세요."
     >
-      <!-- --panel-height: 지도와 날씨 목록이 공유하는 높이 기준값 -->
-      <section class="grid grid-cols-1 gap-6 lg:grid-cols-2 [--panel-height:34rem]">
+      <section class="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <KoreaMap :selected-city="selectedCityInfo" @select-region="handleRegionSelect" />
         <WeatherList
           :weather-list="weatherList"

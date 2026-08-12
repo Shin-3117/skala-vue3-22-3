@@ -99,8 +99,8 @@ onMounted(() => {
 .map-card {
   width: 100%;
   max-width: 700px;
-  /* 지도 높이 기준값. WeatherList 스크롤 영역이 이 높이를 넘지 않습니다. */
-  height: var(--panel-height, 34rem);
+  /* 높이 기준값은 style.css의 :root에 선언되어 있습니다. */
+  height: var(--panel-height);
   padding: 16px;
   display: flex;
   flex-direction: column;

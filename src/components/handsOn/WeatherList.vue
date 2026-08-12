@@ -23,7 +23,7 @@ const handleSelectCity = (cityName) => {
 </script>
 
 <template>
-  <div class="flex h-[var(--panel-height,34rem)] flex-col">
+  <div class="flex h-[var(--panel-height)] flex-col">
     <div class="mb-4 shrink-0">
       <p v-if="!searchQuery.trim()" class="text-sm text-gray-500">
         전체 도시 목록을 보여줍니다.

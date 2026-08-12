@@ -53,11 +53,11 @@ const goToDetailPage = () => {
 
 <template>
   <Card
-    class="cursor-pointer transition-all duration-300 relative overflow-hidden group border rounded-2xl bg-white/80 backdrop-blur-md shadow-sm hover:shadow-lg"
+    class="cursor-pointer transition-all duration-300 relative overflow-hidden group border rounded-2xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm hover:shadow-lg"
     :class="
       props.isSelected
-        ? 'border-sky-500 bg-sky-50/80 shadow-md shadow-sky-500/10'
-        : 'border-slate-200/90 hover:border-sky-300'
+        ? 'border-sky-500 bg-sky-50/80 dark:bg-slate-800/80 shadow-md shadow-sky-500/10'
+        : 'border-slate-200/90 dark:border-slate-800 hover:border-sky-300 dark:hover:border-sky-500'
     "
     @click="handleSelect"
   >
@@ -70,7 +70,7 @@ const goToDetailPage = () => {
       <div class="flex justify-between items-center">
         <div class="flex items-center gap-1.5">
           <MapPin class="w-4 h-4 text-sky-500 shrink-0" />
-          <CardTitle class="text-lg font-extrabold text-slate-800 tracking-tight">{{ props.name }}</CardTitle>
+          <CardTitle class="text-lg font-extrabold text-slate-800 dark:text-slate-100 tracking-tight">{{ props.name }}</CardTitle>
         </div>
         <WeatherBadge :temp="props.temp" />
       </div>
@@ -79,24 +79,24 @@ const goToDetailPage = () => {
     <CardContent class="px-4 pb-4 pt-2">
       <div class="flex items-center justify-between my-2">
         <div>
-          <span class="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-sky-700">
+          <span class="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-sky-700 dark:from-slate-100 dark:to-sky-400">
             {{ configStore.getTemp(props.temp) }}{{ configStore.unitSymbol() }}
           </span>
-          <p class="text-xs font-bold text-sky-600 mt-0.5">{{ props.status }}</p>
+          <p class="text-xs font-bold text-sky-600 dark:text-sky-400 mt-0.5">{{ props.status }}</p>
         </div>
 
-        <div class="w-12 h-12 rounded-xl overflow-hidden shadow-sm border border-slate-200 shrink-0 group-hover:scale-105 transition-transform bg-slate-50">
+        <div class="w-12 h-12 rounded-xl overflow-hidden shadow-sm border border-slate-200 dark:border-slate-700 shrink-0 group-hover:scale-105 transition-transform bg-slate-50 dark:bg-slate-800">
           <img :src="imageSrc" :alt="props.status" class="w-full h-full object-cover" />
         </div>
       </div>
 
-      <div class="grid grid-cols-2 gap-2 my-3 p-2 rounded-xl bg-sky-50/60 border border-sky-100 text-xs text-slate-600 font-medium">
+      <div class="grid grid-cols-2 gap-2 my-3 p-2 rounded-xl bg-sky-50/60 dark:bg-slate-800/60 border border-sky-100 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 font-medium">
         <div class="flex items-center gap-1">
           <Droplets class="w-3.5 h-3.5 text-sky-500" />
           <span>습도 {{ props.humidity }}%</span>
         </div>
         <div class="flex items-center gap-1">
-          <Wind class="w-3.5 h-3.5 text-indigo-500" />
+          <Wind class="w-3.5 h-3.5 text-indigo-500 dark:text-indigo-400" />
           <span>풍속 {{ props.wind }}m/s</span>
         </div>
       </div>
@@ -104,7 +104,7 @@ const goToDetailPage = () => {
       <Button
         variant="outline"
         size="sm"
-        class="w-full rounded-xl bg-white hover:bg-sky-500 hover:text-white border-slate-200 text-slate-700 text-xs font-bold flex items-center justify-center gap-1 transition-all group/btn cursor-pointer shadow-xs"
+        class="w-full rounded-xl bg-white dark:bg-slate-800 hover:bg-sky-500 dark:hover:bg-sky-500 hover:text-white dark:hover:text-white border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-xs font-bold flex items-center justify-center gap-1 transition-all group/btn cursor-pointer shadow-xs"
         @click.stop="goToDetailPage"
       >
         <span>상세 페이지</span>

@@ -46,7 +46,7 @@ const handleFilterStatus = (filterKey) => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-sky-50/50 text-slate-800 py-8 px-4 sm:px-6 lg:px-10">
+  <div class="min-h-screen bg-sky-50/50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 transition-colors duration-300 py-8 px-4 sm:px-6 lg:px-10">
     <article class="max-w-7xl mx-auto flex flex-col gap-6">
       <!-- 1. Global Header Navigation -->
       <HeaderNav />

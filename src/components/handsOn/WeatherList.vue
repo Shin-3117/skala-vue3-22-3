@@ -39,21 +39,21 @@ const handleSelectCity = (cityName) => {
 </script>
 
 <template>
-  <div class="flex h-[var(--panel-height)] flex-col bg-white/70 backdrop-blur-md rounded-2xl p-4 border border-slate-200 shadow-sm">
-    <div class="mb-4 shrink-0 flex items-center justify-between border-b border-slate-100 pb-3">
+  <div class="flex h-[var(--panel-height)] flex-col bg-white/70 dark:bg-slate-900/70 backdrop-blur-md rounded-2xl p-4 border border-slate-200 dark:border-slate-800 shadow-sm">
+    <div class="mb-4 shrink-0 flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
       <div class="flex items-center gap-2">
-        <Building2 class="w-4 h-4 text-sky-600" />
-        <span class="text-sm font-extrabold text-slate-800">도시별 실시간 목록</span>
+        <Building2 class="w-4 h-4 text-sky-600 dark:text-sky-400" />
+        <span class="text-sm font-extrabold text-slate-800 dark:text-slate-100">도시별 실시간 목록</span>
       </div>
 
       <div class="text-xs font-bold">
-        <span v-if="!searchQuery.trim()" class="px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 border border-slate-200">
+        <span v-if="!searchQuery.trim()" class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
           총 {{ filteredWeatherList.length }}개 도시
         </span>
-        <span v-else-if="filteredWeatherList.length > 0" class="px-2.5 py-1 rounded-full bg-sky-100 text-sky-700 border border-sky-200">
+        <span v-else-if="filteredWeatherList.length > 0" class="px-2.5 py-1 rounded-full bg-sky-100 dark:bg-sky-950 text-sky-700 dark:text-sky-300 border border-sky-200 dark:border-sky-800">
           '{{ searchQuery }}' {{ filteredWeatherList.length }}건
         </span>
-        <span v-else class="px-2.5 py-1 rounded-full bg-rose-100 text-rose-700 border border-rose-200">
+        <span v-else class="px-2.5 py-1 rounded-full bg-rose-100 dark:bg-rose-950 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800">
           결과 없음
         </span>
       </div>

@@ -35,13 +35,13 @@ const selectQuickCity = (city) => {
         type="text"
         v-model="searchQueryProxy"
         placeholder="도시명을 검색해보세요 (예: 서울, 부산, ㅅㅇ, ㅂㅅ 등 초성 검색 지원)"
-        class="w-full pl-11 pr-10 py-3.5 rounded-2xl bg-white/90 border border-slate-200 text-slate-800 placeholder-slate-400 text-sm shadow-sm focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 transition-all font-medium"
+        class="w-full pl-11 pr-10 py-3.5 rounded-2xl bg-white/90 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 text-sm shadow-sm focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 transition-all font-medium"
       />
 
       <div v-if="searchQueryProxy" class="absolute inset-y-0 right-0 flex items-center pr-3">
         <button
           @click="searchQueryProxy = ''"
-          class="p-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 transition-colors cursor-pointer"
+          class="p-1.5 rounded-full bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-500 dark:text-slate-300 transition-colors cursor-pointer"
           title="검색어 지우기"
         >
           <X class="w-4 h-4" />

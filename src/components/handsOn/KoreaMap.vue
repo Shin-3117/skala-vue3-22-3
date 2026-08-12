@@ -75,21 +75,21 @@ onMounted(() => {
 </script>
 
 <template>
-  <Card class="map-card glass-card border border-slate-200 rounded-2xl bg-white/80">
+  <Card class="map-card glass-card border border-slate-200 dark:border-slate-800 rounded-2xl bg-white/80 dark:bg-slate-900/80">
     <div class="selection-panel flex items-center justify-between">
-      <div class="flex items-center gap-2 text-sm font-bold text-slate-800">
-        <Map class="w-4 h-4 text-sky-600" />
-        <span v-if="props.selectedCity" class="text-sky-700 flex items-center gap-1">
-          <MapPin class="w-4 h-4 text-amber-500 " />
-          <span class="font-extrabold text-slate-900">{{ props.selectedCity }}</span> 선택됨
+      <div class="flex items-center gap-2 text-sm font-bold text-slate-800 dark:text-slate-100">
+        <Map class="w-4 h-4 text-sky-600 dark:text-sky-400" />
+        <span v-if="props.selectedCity" class="text-sky-700 dark:text-sky-300 flex items-center gap-1">
+          <MapPin class="w-4 h-4 text-amber-500" />
+          <span class="font-extrabold text-slate-900 dark:text-slate-100">{{ props.selectedCity }}</span> 선택됨
         </span>
-        <span v-else class="text-slate-500 flex items-center gap-1.5 font-medium">
-          <Navigation class="w-4 h-4 text-sky-500 " />
+        <span v-else class="text-slate-500 dark:text-slate-400 flex items-center gap-1.5 font-medium">
+          <Navigation class="w-4 h-4 text-sky-500 dark:text-sky-400" />
           지도의 지역을 클릭해보세요.
         </span>
       </div>
 
-      <div v-if="props.selectedCity" class="text-xs font-semibold text-slate-500 bg-sky-50 px-2.5 rounded-lg border border-sky-100">
+      <div v-if="props.selectedCity" class="text-xs font-semibold text-slate-500 dark:text-slate-400 bg-sky-50 dark:bg-slate-800 px-2.5 rounded-lg border border-sky-100 dark:border-slate-700">
         다시 클릭 시 해제
       </div>
     </div>
@@ -109,6 +109,10 @@ onMounted(() => {
   gap: 12px;
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(12px);
+}
+
+:global(.dark) .map-card {
+  background: rgba(15, 23, 42, 0.8);
 }
 
 /* 남은 공간만큼만 지도를 그려서 카드 높이가 늘어나지 않게 합니다. */
@@ -136,6 +140,11 @@ onMounted(() => {
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+:global(.dark) .map-wrapper :deep(.map-path) {
+  fill: #334155;
+  stroke: #475569;
+}
+
 .map-wrapper :deep(.map-path:hover),
 .map-wrapper :deep(.map-path.is-hovered) {
   fill: #38bdf8;
@@ -156,5 +165,10 @@ onMounted(() => {
   border-radius: 14px;
   background: rgba(241, 245, 249, 0.9);
   border: 1px solid rgba(226, 232, 240, 0.9);
+}
+
+:global(.dark) .selection-panel {
+  background: rgba(30, 41, 59, 0.9);
+  border-color: rgba(51, 65, 85, 0.9);
 }
 </style>

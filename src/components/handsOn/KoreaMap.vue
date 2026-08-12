@@ -6,7 +6,6 @@ import mapSvg from './map.svg?raw'
 const emit = defineEmits(['select-region'])
 const props = defineProps({ selectedCity: { type: String, default: '' } })
 const svgWrapper = ref(null)
-const selectedRegion = ref('')
 
 const regionLabels = [
   '서울',
@@ -30,6 +29,7 @@ const regionLabels = [
 
 let paths = []
 
+// 빈 문자열이 들어오면 일치하는 지역이 없으므로 모든 선택이 해제됩니다.
 const updateActiveRegion = (regionName) => {
   if (!paths.length) return
 
@@ -40,20 +40,7 @@ const updateActiveRegion = (regionName) => {
   })
 }
 // 선택한 도시 변경시 watch로 지도 선택 변경
-watch(
-  () => props.selectedCity,
-  (newValue) => {
-    if (!newValue) {
-      paths.forEach((path) => path.classList.remove('is-active'))
-      selectedRegion.value = ''
-      return
-    }
-
-    selectedRegion.value = newValue
-    updateActiveRegion(newValue)
-  },
-  { immediate: true },
-)
+watch(() => props.selectedCity, updateActiveRegion)
 
 onMounted(() => {
   const wrapper = svgWrapper.value
@@ -74,21 +61,21 @@ onMounted(() => {
       path.classList.remove('is-hovered')
     })
 
+    // 선택 여부는 부모가 결정합니다. (이미 선택된 지역이면 부모가 선택을 해제)
     path.addEventListener('click', () => {
-      paths.forEach((item) => item.classList.remove('is-active'))
-      path.classList.add('is-active')
-      selectedRegion.value = label
       emit('select-region', label)
     })
   })
+
+  // paths가 준비된 뒤 현재 선택 상태를 한 번 반영합니다.
+  updateActiveRegion(props.selectedCity)
 })
 </script>
 
 <template>
   <Card class="map-card">
-    <p>선택한 도시(selectedCityInfo) 변경시 watch로 지도 선택 변경</p>
     <div class="selection-panel">
-      <p v-if="selectedRegion">선택한 지역: {{ selectedRegion }}</p>
+      <p v-if="props.selectedCity">선택한 지역: {{ props.selectedCity }}</p>
       <p v-else>지도 위의 지역을 클릭해보세요.</p>
     </div>
     <div ref="svgWrapper" class="map-wrapper" v-html="mapSvg" />

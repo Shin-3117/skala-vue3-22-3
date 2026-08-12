@@ -8,7 +8,12 @@ import {
   CardContent,
 } from '@/components/ui/card/index.js'
 
-const props = defineProps(['name', 'temp', 'status'])
+const props = defineProps({
+  name: { type: String, required: true },
+  temp: { type: Number, required: true },
+  status: { type: String, required: true },
+  isSelected: { type: Boolean, default: false },
+})
 const emit = defineEmits(['select-city'])
 
 const handleSelect = (event) => {
@@ -23,7 +28,15 @@ const showDetail = (cityName, status) => {
 }
 </script>
 <template>
-  <Card class="cursor-pointer hover:shadow-lg transition-shadow duration-200 border-gray-200" @click="handleSelect">
+  <Card
+    class="cursor-pointer transition-all duration-200 hover:shadow-lg"
+    :class="
+      props.isSelected
+        ? 'border-blue-500 bg-blue-50 shadow-md'
+        : 'border-gray-200'
+    "
+    @click="handleSelect"
+  >
     <CardHeader class="pb-2">
       <div class="flex justify-between items-center">
         <CardTitle class="text-lg">{{ props.name }}</CardTitle>

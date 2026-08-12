@@ -7,6 +7,7 @@ import { includesChoseong } from '@/lib/search.js'
 const props = defineProps({
   weatherList: { type: Array, required: true },
   searchQuery: { type: String, default: '' },
+  selectedCity: { type: String, default: '' },
 })
 const emit = defineEmits(['select-city'])
 
@@ -41,6 +42,7 @@ const handleSelectCity = (cityName) => {
             :name="item.name"
             :temp="item.temp"
             :status="item.status"
+            :is-selected="item.name === selectedCity"
             @select-city="handleSelectCity"
           />
         </li>

@@ -27,14 +27,12 @@ const weatherList = ref([
   { id: 'city_17', name: '강원', temp: 23, status: '흐림' },
 ])
 
-const handleCitySelect = (cityName) => {
-  selectedCityInfo.value = cityName
-  searchQuery.value = cityName
-}
+// 목록/지도 공통 선택 처리. 이미 선택된 항목을 다시 선택하면 선택을 해제합니다.
+const toggleSelection = (name) => {
+  const isAlreadySelected = selectedCityInfo.value === name
 
-const handleRegionSelect = (regionName) => {
-  selectedCityInfo.value = regionName
-  searchQuery.value = regionName
+  selectedCityInfo.value = isAlreadySelected ? '' : name
+  searchQuery.value = isAlreadySelected ? '' : name
 }
 
 const handleUpdateQuery = (query) => {
@@ -73,11 +71,12 @@ const handleUpdateQuery = (query) => {
       description="지도에서 선택하거나 목록에서 도시를 선택하세요."
     >
       <section class="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <KoreaMap :selected-city="selectedCityInfo" @select-region="handleRegionSelect" />
+        <KoreaMap :selected-city="selectedCityInfo" @select-region="toggleSelection" />
         <WeatherList
           :weather-list="weatherList"
           :search-query="searchQuery"
-          @select-city="handleCitySelect"
+          :selected-city="selectedCityInfo"
+          @select-city="toggleSelection"
         />
       </section>
     </BaseDashboardCard>

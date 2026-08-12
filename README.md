@@ -47,3 +47,4 @@ npm run lint
 
 tailwindcss 추가
 shadcn-vue 추가
+es-hangul 추가

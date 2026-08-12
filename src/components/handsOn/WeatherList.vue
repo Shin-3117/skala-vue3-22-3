@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 import WeatherCard from './WeatherCard.vue'
+import { ScrollArea } from '@/components/ui/scroll-area/index.js'
 import { includesChoseong } from '@/lib/search.js'
 
 const props = defineProps({
@@ -22,8 +23,8 @@ const handleSelectCity = (cityName) => {
 </script>
 
 <template>
-  <div class="h-full">
-    <div class="mb-4">
+  <div class="flex h-[var(--panel-height,34rem)] flex-col">
+    <div class="mb-4 shrink-0">
       <p v-if="!searchQuery.trim()" class="text-sm text-gray-500">
         전체 도시 목록을 보여줍니다.
       </p>
@@ -33,18 +34,17 @@ const handleSelectCity = (cityName) => {
       <p v-else class="text-sm text-red-500">일치하는 도시가 없습니다.</p>
     </div>
 
-    <ul
-      v-if="filteredWeatherList.length > 0"
-      class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-2"
-    >
-      <li v-for="item in filteredWeatherList" :key="item.id">
-        <WeatherCard
-          :name="item.name"
-          :temp="item.temp"
-          :status="item.status"
-          @select-city="handleSelectCity"
-        />
-      </li>
-    </ul>
+    <ScrollArea v-if="filteredWeatherList.length > 0" class="min-h-0 flex-1 pr-3">
+      <ul class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-2">
+        <li v-for="item in filteredWeatherList" :key="item.id">
+          <WeatherCard
+            :name="item.name"
+            :temp="item.temp"
+            :status="item.status"
+            @select-city="handleSelectCity"
+          />
+        </li>
+      </ul>
+    </ScrollArea>
   </div>
 </template>

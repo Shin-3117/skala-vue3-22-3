@@ -99,16 +99,24 @@ onMounted(() => {
 .map-card {
   width: 100%;
   max-width: 700px;
+  /* 지도 높이 기준값. WeatherList 스크롤 영역이 이 높이를 넘지 않습니다. */
+  height: var(--panel-height, 34rem);
   padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
+/* 남은 공간만큼만 지도를 그려서 카드 높이가 늘어나지 않게 합니다. */
+.map-wrapper {
+  flex: 1;
+  min-height: 0;
+}
+
 .map-wrapper :deep(svg) {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
   border-radius: 12px;
 }
 

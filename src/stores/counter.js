@@ -10,3 +10,19 @@ export const useCounterStore = defineStore('counter', () => {
 
   return { count, doubleCount, increment }
 })
+
+/* 사용 예시
+<script setup>
+import { useCounterStore } from './stores/counter'
+
+const counterStore = useCounterStore()
+  </script>
+
+<template>
+  <div>
+    <p>Count: {{ counterStore.count }}</p>
+    <p>Double Count: {{ counterStore.doubleCount }}</p>
+    <button @click="counterStore.increment()">증가</button>
+</div>
+</template>
+*/

@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
+import { useConfigStore } from '@/stores/configStore'
 import {
   MapPin,
   Wind,
@@ -18,6 +19,7 @@ const props = defineProps({
 
 const emit = defineEmits(['filter-status'])
 const router = useRouter()
+const configStore = useConfigStore()
 
 const weatherIconMap = {
   맑음: '/assets/sunny.jpg',
@@ -76,9 +78,9 @@ const goToDetailPage = () => {
         </div>
 
         <p class="text-sm text-slate-600 font-medium mt-1">
-          최저 <span class="text-blue-600 font-bold">{{ featuredCity.tempMin || (featuredCity.temp - 4) }}°C</span> /
-          최고 <span class="text-amber-600 font-bold">{{ featuredCity.tempMax || (featuredCity.temp + 3) }}°C</span> ·
-          체감 <span class="text-slate-800 font-bold">{{ featuredCity.feelsLike || (featuredCity.temp + 1) }}°C</span>
+          최저 <span class="text-blue-600 font-bold">{{ configStore.getTemp(featuredCity.tempMin || (featuredCity.temp - 4)) }}{{ configStore.unitSymbol() }}</span> /
+          최고 <span class="text-amber-600 font-bold">{{ configStore.getTemp(featuredCity.tempMax || (featuredCity.temp + 3)) }}{{ configStore.unitSymbol() }}</span> ·
+          체감 <span class="text-slate-800 font-bold">{{ configStore.getTemp(featuredCity.feelsLike || (featuredCity.temp + 1)) }}{{ configStore.unitSymbol() }}</span>
         </p>
 
         <!-- Dynamic Micro Stats Bar -->
@@ -123,9 +125,11 @@ const goToDetailPage = () => {
 
         <div class="flex flex-col">
           <span class="text-6xl md:text-7xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-sky-600 via-blue-600 to-indigo-700 drop-shadow-sm">
-            {{ featuredCity.temp }}°
+            {{ configStore.getTemp(featuredCity.temp) }}{{ configStore.unitSymbol() }}
           </span>
-          <span class="text-xs font-bold uppercase text-slate-400 tracking-wider">섭씨 (CELSIUS)</span>
+          <span class="text-xs font-bold uppercase text-slate-400 tracking-wider">
+            {{ configStore.isFahrenheit ? '화씨 (FAHRENHEIT)' : '섭씨 (CELSIUS)' }}
+          </span>
         </div>
       </div>
     </div>

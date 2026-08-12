@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
+import { useConfigStore } from '@/stores/configStore'
 import Button from '@/components/ui/button/Button.vue'
 import WeatherBadge from './WeatherBadge.vue'
 import {
@@ -23,6 +24,7 @@ const props = defineProps({
 
 const emit = defineEmits(['select-city'])
 const router = useRouter()
+const configStore = useConfigStore()
 
 const weatherIconMap = {
   맑음: '/assets/sunny.jpg',
@@ -78,7 +80,7 @@ const goToDetailPage = () => {
       <div class="flex items-center justify-between my-2">
         <div>
           <span class="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-sky-700">
-            {{ props.temp }}°C
+            {{ configStore.getTemp(props.temp) }}{{ configStore.unitSymbol() }}
           </span>
           <p class="text-xs font-bold text-sky-600 mt-0.5">{{ props.status }}</p>
         </div>

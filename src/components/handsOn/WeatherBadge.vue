@@ -2,15 +2,20 @@
 import { computed } from 'vue'
 import { Badge } from '@/components/ui/badge/index.js'
 import { Flame, Snowflake } from '@lucide/vue'
+import { useConfigStore } from '@/stores/configStore'
 
 const props = defineProps({
   temp: { type: Number, required: true },
 })
 
+const configStore = useConfigStore()
+
 const isHot = computed(() => props.temp >= 25)
 
 const temperatureLabel = computed(() => {
-  return isHot.value ? `${props.temp}°C 더움` : `${props.temp}°C 선선함`
+  const converted = configStore.getTemp(props.temp)
+  const symbol = configStore.unitSymbol()
+  return isHot.value ? `${converted}${symbol} 더움` : `${converted}${symbol} 선선함`
 })
 </script>
 

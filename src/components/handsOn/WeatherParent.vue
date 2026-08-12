@@ -1,9 +1,9 @@
 <script setup>
-import { computed, ref, watchEffect } from 'vue'
+import { ref } from 'vue'
 import BaseDashboardCard from './BaseDashboardCard.vue'
 import SearchBar from './SearchBar.vue'
 import WeatherList from './WeatherList.vue'
-import Map from './Map.vue'
+import KoreaMap from './KoreaMap.vue'
 
 const searchQuery = ref('')
 const selectedCityInfo = ref('')
@@ -26,13 +26,6 @@ const weatherList = ref([
   { id: 'city_16', name: '제주', temp: 24, status: '소나기' },
   { id: 'city_17', name: '강원', temp: 23, status: '흐림' },
 ])
-
-const filteredWeatherList = computed(() => {
-  const query = searchQuery.value.trim().toLowerCase()
-  if (!query) return weatherList.value
-
-  return weatherList.value.filter((item) => item.name.toLowerCase().includes(query))
-})
 
 const handleCitySelect = (cityName) => {
   selectedCityInfo.value = cityName
@@ -62,17 +55,25 @@ const handleUpdateQuery = (query) => {
 </script>
 
 <template>
-  <article class="flex flex-col gap-8 p-8">
-    <BaseDashboardCard title="날씨 검색창" description="도시명으로 검색하세요">
+  <article class="max-w-6xl mx-auto flex flex-col gap-8 p-6 md:p-10">
+    <header class="mb-4">
+      <h1 class="text-3xl font-bold text-gray-900">날씨 대시보드</h1>
+      <p class="text-gray-600 mt-2">전국 주요 도시의 날씨 정보를 확인하세요.</p>
+    </header>
+
+    <BaseDashboardCard title="날씨 검색" description="조회하고 싶은 도시를 입력하세요.">
       <SearchBar :search-query="searchQuery" @update-query="handleUpdateQuery" />
-      <p class="mt-3 text-sm text-gray-500">선택한 도시: {{ selectedCityInfo || '없음' }}</p>
+      <div class="mt-4 p-4 bg-gray-50 rounded-lg text-sm text-gray-700">
+        선택한 도시: <span class="font-semibold text-blue-600">{{ selectedCityInfo || '없음' }}</span>
+      </div>
     </BaseDashboardCard>
+
     <BaseDashboardCard
-      title="날씨 목록"
-      description="검색어에 따라 필터링된 도시 목록을 표시합니다."
+      title="지역별 날씨"
+      description="지도에서 선택하거나 목록에서 도시를 선택하세요."
     >
-      <section class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <Map :selected-city="selectedCityInfo" @select-region="handleRegionSelect" />
+      <section class="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <KoreaMap :selected-city="selectedCityInfo" @select-region="handleRegionSelect" />
         <WeatherList
           :weather-list="weatherList"
           :search-query="searchQuery"

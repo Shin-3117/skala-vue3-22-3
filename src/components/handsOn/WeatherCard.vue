@@ -6,7 +6,6 @@ import {
   CardHeader,
   CardTitle,
   CardContent,
-  CardDescription,
 } from '@/components/ui/card/index.js'
 
 const props = defineProps(['name', 'temp', 'status'])
@@ -24,15 +23,19 @@ const showDetail = (cityName, status) => {
 }
 </script>
 <template>
-  <Card class="cursor-pointer" @click="handleSelect">
-    <CardHeader>
-      <CardTitle>{{ props.name }}</CardTitle>
-      <CardDescription><WeatherBadge :temp="props.temp" /></CardDescription>
+  <Card class="cursor-pointer hover:shadow-lg transition-shadow duration-200 border-gray-200" @click="handleSelect">
+    <CardHeader class="pb-2">
+      <div class="flex justify-between items-center">
+        <CardTitle class="text-lg">{{ props.name }}</CardTitle>
+        <WeatherBadge :temp="props.temp" />
+      </div>
     </CardHeader>
     <CardContent>
-      <p>온도: {{ props.temp }}°C</p>
-      <p>날씨: {{ props.status }}</p>
-      <Button @click.stop="showDetail(props.name, props.status)">상세보기</Button>
+      <div class="text-sm text-gray-600 mb-4">
+        <p>온도: <span class="font-bold text-gray-900">{{ props.temp }}°C</span></p>
+        <p>상태: <span class="font-medium">{{ props.status }}</span></p>
+      </div>
+      <Button variant="outline" size="sm" class="w-full" @click.stop="showDetail(props.name, props.status)">상세보기</Button>
     </CardContent>
   </Card>
 </template>

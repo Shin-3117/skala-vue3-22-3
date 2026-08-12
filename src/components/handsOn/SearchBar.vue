@@ -15,14 +15,24 @@ const searchQueryProxy = computed({
 </script>
 
 <template>
-  <div class="grid w-full max-w-md gap-2">
-    <Label for="weather-search">도시 검색</Label>
-    <Input
-      id="weather-search"
-      type="text"
-      v-model="searchQueryProxy"
-      placeholder="검색할 도시를 입력하세요"
-      class="w-full"
-    />
+  <div class="flex flex-col gap-2">
+    <Label for="weather-search" class="text-sm font-medium text-gray-700">도시 검색</Label>
+    <div class="relative">
+      <Input
+        id="weather-search"
+        type="text"
+        v-model="searchQueryProxy"
+        placeholder="예: 서울, 부산..."
+        class="w-full pl-4 pr-4 py-2 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+      />
+      <div v-if="searchQueryProxy" class="absolute inset-y-0 right-0 flex items-center pr-3">
+        <button
+          @click="searchQueryProxy = ''"
+          class="text-gray-400 hover:text-gray-600"
+        >
+          ✕
+        </button>
+      </div>
+    </div>
   </div>
 </template>

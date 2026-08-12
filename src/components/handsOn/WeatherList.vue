@@ -21,18 +21,20 @@ const handleSelectCity = (cityName) => {
 </script>
 
 <template>
-  <div>
-    <p v-if="!searchQuery.trim()" class="mb-4 text-sm text-gray-500">
-      검색어가 없으면 전체 도시 목록을 표시합니다.
-    </p>
-    <p v-else-if="filteredWeatherList.length > 0" class="mb-4 text-sm text-gray-500">
-      {{ searchQuery }}에 대한 검색 결과 {{ filteredWeatherList.length }}건입니다.
-    </p>
-    <p v-else class="mb-4 text-sm text-gray-500">검색 결과가 일치하는 도시가 없습니다.</p>
+  <div class="h-full">
+    <div class="mb-4">
+      <p v-if="!searchQuery.trim()" class="text-sm text-gray-500">
+        전체 도시 목록을 보여줍니다.
+      </p>
+      <p v-else-if="filteredWeatherList.length > 0" class="text-sm font-medium text-blue-600">
+        '{{ searchQuery }}'에 대한 검색 결과: {{ filteredWeatherList.length }}건
+      </p>
+      <p v-else class="text-sm text-red-500">일치하는 도시가 없습니다.</p>
+    </div>
 
     <ul
       v-if="filteredWeatherList.length > 0"
-      class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3"
+      class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-2"
     >
       <li v-for="item in filteredWeatherList" :key="item.id">
         <WeatherCard

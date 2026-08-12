@@ -15,10 +15,6 @@ import {
   Clock,
   Shirt,
   Umbrella,
-  Compass,
-  Sunrise,
-  Sunset,
-  Share2,
   AlertTriangle
 } from '@lucide/vue'
 
@@ -143,8 +139,8 @@ const goBack = () => {
                 <div class="text-left font-medium">
                   <div class="text-lg font-bold text-slate-800">{{ cityData.status }}</div>
                   <div class="text-xs text-slate-500">
-                    체감 <span class="font-bold text-slate-700">{{ cityData.feelsLike }}°C</span> · 
-                    최저 <span class="font-bold text-blue-600">{{ cityData.tempMin }}°</span> / 
+                    체감 <span class="font-bold text-slate-700">{{ cityData.feelsLike }}°C</span> ·
+                    최저 <span class="font-bold text-blue-600">{{ cityData.tempMin }}°</span> /
                     최고 <span class="font-bold text-amber-600">{{ cityData.tempMax }}°</span>
                   </div>
                 </div>

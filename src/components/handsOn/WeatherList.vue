@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 import WeatherCard from './WeatherCard.vue'
+import { includesChoseong } from '@/lib/search.js'
 
 const props = defineProps({
   weatherList: { type: Array, required: true },
@@ -9,10 +10,10 @@ const props = defineProps({
 const emit = defineEmits(['select-city'])
 
 const filteredWeatherList = computed(() => {
-  const query = props.searchQuery.trim().toLowerCase()
+  const query = props.searchQuery.trim()
   if (!query) return props.weatherList
 
-  return props.weatherList.filter((item) => item.name.toLowerCase().includes(query))
+  return props.weatherList.filter((item) => includesChoseong(item.name, query))
 })
 
 const handleSelectCity = (cityName) => {

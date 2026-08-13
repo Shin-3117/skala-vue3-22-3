@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
-import { Sun, Moon, Thermometer, Radio, Bell } from '@lucide/vue'
+import { Sun, Moon, Thermometer, Radio } from '@lucide/vue'
 import { useConfigStore } from '@/stores/configStore'
 
 const configStore = useConfigStore()

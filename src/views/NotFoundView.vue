@@ -1,6 +1,6 @@
 <script setup>
 import { useRouter } from 'vue-router'
-import { CloudOff, Home, ArrowLeft, Search } from '@lucide/vue'
+import { CloudOff, Home, ArrowLeft } from '@lucide/vue'
 
 const router = useRouter()
 

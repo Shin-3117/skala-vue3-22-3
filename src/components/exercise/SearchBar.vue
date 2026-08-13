@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from 'vue'
-import { Search, X, Sparkles } from '@lucide/vue'
+import { Search, X } from '@lucide/vue'
 
 const props = defineProps({
   searchQuery: { type: String, default: '' },
@@ -12,15 +12,6 @@ const searchQueryProxy = computed({
   set: (value) => emit('update-query', value),
 })
 
-const popularCities = ['서울', '부산', '제주', '대구', '인천', '광주', '강원']
-
-const selectQuickCity = (city) => {
-  if (searchQueryProxy.value === city) {
-    searchQueryProxy.value = ''
-  } else {
-    searchQueryProxy.value = city
-  }
-}
 </script>
 
 <template>

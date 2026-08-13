@@ -1,26 +1,32 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import HeaderNav from './HeaderNav.vue'
 import HeroWeatherBanner from './HeroWeatherBanner.vue'
 import BaseDashboardCard from './BaseDashboardCard.vue'
 import SearchBar from './SearchBar.vue'
 import WeatherList from './WeatherList.vue'
 import KoreaMap from './KoreaMap.vue'
-import { weatherDataList } from '@/data/weatherData.js'
-import { Info } from '@lucide/vue'
+import { useWeatherStore } from '@/stores/weatherStore'
+import { Info, RefreshCw } from '@lucide/vue'
+
+const weatherStore = useWeatherStore()
+
+onMounted(() => {
+  weatherStore.fetchWeather()
+})
 
 const searchQuery = ref('')
 const selectedCityInfo = ref('')
 const statusFilter = ref('ALL')
 
-const weatherList = ref(weatherDataList)
+const weatherList = computed(() => weatherStore.weatherList)
 
 const featuredCity = computed(() => {
   if (selectedCityInfo.value) {
     const found = weatherList.value.find((c) => c.name === selectedCityInfo.value)
     if (found) return found
   }
-  return weatherList.value[0] // 기본값: 서울
+  return weatherList.value[0] || { name: '서울', temp: 25, status: '맑음' }
 })
 
 // 목록/지도 공통 선택 처리
@@ -42,6 +48,10 @@ const handleFilterStatus = (filterKey) => {
   statusFilter.value = filterKey
   selectedCityInfo.value = ''
   searchQuery.value = ''
+}
+
+const refreshWeather = () => {
+  weatherStore.fetchWeather(true)
 }
 </script>
 

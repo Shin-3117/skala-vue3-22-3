@@ -1,7 +1,7 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { getCityByIdOrName } from '@/data/weatherData.js'
+import { useWeatherStore } from '@/stores/weatherStore'
 import { useConfigStore } from '@/stores/configStore'
 import {
   ArrowLeft,
@@ -23,9 +23,14 @@ import {
 const route = useRoute()
 const router = useRouter()
 const configStore = useConfigStore()
+const weatherStore = useWeatherStore()
+
+onMounted(() => {
+  weatherStore.fetchWeather()
+})
 
 const cityIdParam = computed(() => route.params.cityId)
-const cityData = computed(() => getCityByIdOrName(cityIdParam.value))
+const cityData = computed(() => weatherStore.getCityByIdOrName(cityIdParam.value))
 
 const weatherIconMap = {
   맑음: '/assets/sunny.jpg',

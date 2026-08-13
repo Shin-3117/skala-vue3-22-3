@@ -1,29 +1,131 @@
-export const weatherDataList = [
-  { id: 'city_01', name: '서울', temp: 28, status: '맑음', tempMin: 24, tempMax: 31, feelsLike: 29, humidity: 55, wind: 3.2, dust: '좋음', uv: '보통', description: '쾌청한 하늘과 햇살이 눈부신 날씨입니다. 야외 활동하기 적합합니다.' },
-  { id: 'city_02', name: '부산', temp: 24, status: '구름많음', tempMin: 21, tempMax: 26, feelsLike: 25, humidity: 70, wind: 4.5, dust: '좋음', uv: '낮음', description: '해안가를 중심으로 구름이 많고 시원한 바람이 붑니다.' },
-  { id: 'city_03', name: '대구', temp: 31, status: '맑음', tempMin: 25, tempMax: 34, feelsLike: 33, humidity: 48, wind: 2.1, dust: '보통', uv: '높음', description: '낮 동안 기온이 크게 올라 더위 대비가 필요합니다. 수분 섭취를 해주세요.' },
-  { id: 'city_04', name: '인천', temp: 27, status: '맑음', tempMin: 23, tempMax: 29, feelsLike: 28, humidity: 62, wind: 3.8, dust: '좋음', uv: '보통', description: '맑은 하늘 아래 바람이 다소 붑니다.' },
-  { id: 'city_05', name: '광주', temp: 29, status: '비', tempMin: 23, tempMax: 30, feelsLike: 31, humidity: 82, wind: 2.9, dust: '좋음', uv: '낮음', description: '소나기성 비가 내릴 수 있으니 우산을 챙기시기 바랍니다.' },
-  { id: 'city_06', name: '대전', temp: 28, status: '맑음', tempMin: 23, tempMax: 31, feelsLike: 29, humidity: 58, wind: 2.5, dust: '좋음', uv: '보통', description: '온화하고 자외선 지수가 보통 수준을 유지합니다.' },
-  { id: 'city_07', name: '울산', temp: 27, status: '구름많음', tempMin: 22, tempMax: 28, feelsLike: 28, humidity: 68, wind: 3.9, dust: '좋음', uv: '보통', description: '동해안 산발적 구름이 많으며 가끔 햇살이 비춥니다.' },
-  { id: 'city_08', name: '세종', temp: 28, status: '맑음', tempMin: 22, tempMax: 30, feelsLike: 29, humidity: 56, wind: 2.2, dust: '좋음', uv: '보통', description: '공기가 깨끗하고 온화한 기온을 보입니다.' },
-  { id: 'city_09', name: '경기', temp: 27, status: '흐림', tempMin: 22, tempMax: 29, feelsLike: 28, humidity: 65, wind: 2.7, dust: '보통', uv: '낮음', description: '대기 전반에 구름이 깔려 있으며 비교적 선선합니다.' },
-  { id: 'city_10', name: '충북', temp: 29, status: '맑음', tempMin: 23, tempMax: 31, feelsLike: 30, humidity: 54, wind: 2.3, dust: '좋음', uv: '보통', description: '맑고 고요한 날씨로 미세먼지 농도가 낮습니다.' },
-  { id: 'city_11', name: '충남', temp: 28, status: '구름많음', tempMin: 23, tempMax: 30, feelsLike: 29, humidity: 60, wind: 2.6, dust: '좋음', uv: '보통', description: '구름 사이로 강한 햇빛이 내리쬐는 곳이 있습니다.' },
-  { id: 'city_12', name: '전북', temp: 29, status: '비', tempMin: 23, tempMax: 30, feelsLike: 31, humidity: 85, wind: 3.1, dust: '좋음', uv: '낮음', description: '산발적인 빗방울이 떨어지고 있으며 습도가 높습니다.' },
-  { id: 'city_13', name: '전남', temp: 30, status: '흐림', tempMin: 24, tempMax: 31, feelsLike: 32, humidity: 75, wind: 3.4, dust: '보통', uv: '낮음', description: '흐린 날씨 속에 습도가 무덥게 느껴집니다.' },
-  { id: 'city_14', name: '경북', temp: 30, status: '맑음', tempMin: 24, tempMax: 32, feelsLike: 32, humidity: 50, wind: 2.8, dust: '보통', uv: '높음', description: '햇빛이 강하여 자외선 차단제 착용이 권장됩니다.' },
-  { id: 'city_15', name: '경남', temp: 28, status: '구름많음', tempMin: 23, tempMax: 29, feelsLike: 29, humidity: 66, wind: 3.3, dust: '좋음', uv: '보통', description: '바람이 불어 활동하기 양호한 구름 날씨입니다.' },
-  { id: 'city_16', name: '제주', temp: 24, status: '소나기', tempMin: 22, tempMax: 27, feelsLike: 26, humidity: 88, wind: 5.2, dust: '좋음', uv: '낮음', description: '강한 바람과 함께 소나기가 내리고 있습니다.' },
-  { id: 'city_17', name: '강원', temp: 23, status: '흐림', tempMin: 19, tempMax: 25, feelsLike: 24, humidity: 72, wind: 2.4, dust: '좋음', uv: '낮음', description: '산간 지역을 중심으로 흐리고 시원한 바람이 붑니다.' },
+import weatherApi from '@/api/axios'
+
+// 가져와야 하는 17개 대한민국 주요 지역 좌표 정보
+export const REGIONS = [
+  { id: 'city_01', name: '서울', lat: 37.5665, lon: 126.9780 },
+  { id: 'city_02', name: '부산', lat: 35.1796, lon: 129.0756 },
+  { id: 'city_03', name: '대구', lat: 35.8714, lon: 128.6014 },
+  { id: 'city_04', name: '인천', lat: 37.4563, lon: 126.7052 },
+  { id: 'city_05', name: '광주', lat: 35.1595, lon: 126.8526 },
+  { id: 'city_06', name: '대전', lat: 36.3504, lon: 127.3845 },
+  { id: 'city_07', name: '울산', lat: 35.5384, lon: 129.3114 },
+  { id: 'city_08', name: '세종', lat: 36.4800, lon: 127.2890 },
+  { id: 'city_09', name: '경기', lat: 37.2636, lon: 127.0286 },
+  { id: 'city_10', name: '충북', lat: 36.6424, lon: 127.4890 },
+  { id: 'city_11', name: '충남', lat: 36.6588, lon: 126.6728 },
+  { id: 'city_12', name: '전북', lat: 35.8242, lon: 127.1480 },
+  { id: 'city_13', name: '전남', lat: 34.8160, lon: 126.4629 },
+  { id: 'city_14', name: '경북', lat: 36.5684, lon: 128.7294 },
+  { id: 'city_15', name: '경남', lat: 35.2280, lon: 128.6811 },
+  { id: 'city_16', name: '제주', lat: 33.4996, lon: 126.5312 },
+  { id: 'city_17', name: '강원', lat: 37.8813, lon: 127.7298 },
 ]
 
-export function getCityByIdOrName(query) {
+// 기본 초기 백업 데이터 (로딩 전 또는 API 연결 실패 시)
+export const weatherDataList = REGIONS.map((region) => ({
+  id: region.id,
+  name: region.name,
+  temp: 25,
+  status: '맑음',
+  tempMin: 21,
+  tempMax: 28,
+  feelsLike: 26,
+  humidity: 60,
+  wind: 3.0,
+  dust: '좋음',
+  uv: '보통',
+  description: `${region.name} 지역의 날씨 정보를 불러오는 중입니다...`,
+}))
+
+// OpenWeather API 2.5 날씨 상태 매핑
+export function parseWeatherStatus(weatherItem) {
+  if (!weatherItem) return '맑음'
+  const id = weatherItem.id
+  const desc = weatherItem.description || ''
+
+  if (id >= 200 && id < 600) {
+    if (desc.includes('소나기') || id >= 520) return '소나기'
+    return '비'
+  }
+  if (id >= 600 && id < 700) return '눈'
+  if (id >= 700 && id < 800) return '흐림'
+  if (id === 800) return '맑음'
+  if (id === 801 || id === 802) return '구름많음'
+  if (id === 803 || id === 804) return '흐림'
+
+  return '맑음'
+}
+
+// 개별 지역 API 요청 함수
+export async function fetchCityWeatherFromApi(region) {
+  const response = await weatherApi.get('', {
+    params: {
+      lat: region.lat,
+      lon: region.lon,
+      units: 'metric',
+      lang: 'kr',
+    },
+  })
+
+  const apiData = response.data
+  const weatherObj = apiData.weather?.[0] || {}
+  const mainObj = apiData.main || {}
+  const windObj = apiData.wind || {}
+
+  const temp = Math.round(mainObj.temp ?? 25)
+  const tempMin = Math.round(mainObj.temp_min ?? (temp - 3))
+  const tempMax = Math.round(mainObj.temp_max ?? (temp + 3))
+  const feelsLike = Math.round(mainObj.feels_like ?? temp)
+  const humidity = mainObj.humidity ?? 60
+  const wind = Math.round((windObj.speed ?? 3.0) * 10) / 10
+  const status = parseWeatherStatus(weatherObj)
+  const rawDesc = weatherObj.description || status
+
+  return {
+    id: region.id,
+    name: region.name,
+    temp,
+    status,
+    tempMin,
+    tempMax,
+    feelsLike,
+    humidity,
+    wind,
+    dust: '좋음',
+    uv: '보통',
+    description: `${region.name}의 현재 기상 상태는 '${rawDesc}'입니다. (OpenWeather 2.5 실시간 데이터)`,
+    rawApiData: apiData,
+  }
+}
+
+// 17개 지역 전체 API 병렬 요청 함수
+export async function fetchAllCitiesWeather() {
+  const results = await Promise.allSettled(
+    REGIONS.map((region) => fetchCityWeatherFromApi(region))
+  )
+
+  return REGIONS.map((region, index) => {
+    const result = results[index]
+    if (result.status === 'fulfilled') {
+      return result.value
+    }
+    // 실패 시 기본 데이터 활용
+    return {
+      ...weatherDataList[index],
+      description: `${region.name} 지역 API 연결에 실패하여 기본 정보를 표시합니다.`,
+    }
+  })
+}
+
+// ID 또는 지역명으로 조회
+export function getCityByIdOrName(query, list = weatherDataList) {
   if (!query) return null
   const decoded = decodeURIComponent(query).trim().toLowerCase()
-  return weatherDataList.find(
-    (item) =>
-      item.id.toLowerCase() === decoded ||
-      item.name.toLowerCase() === decoded
-  ) || null
+  return (
+    list.find(
+      (item) =>
+        item.id.toLowerCase() === decoded ||
+        item.name.toLowerCase() === decoded
+    ) || null
+  )
 }

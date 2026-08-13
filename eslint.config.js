@@ -26,6 +26,8 @@ export default defineConfig([
 
   {
     rules: {
+      // 단일 단어 컴포넌트 이름 허용 (Badge.vue, Button.vue 등 UI 컴포넌트용)
+      'vue/multi-word-component-names': 'off',
       // 'error' 대신 'warn'으로 낮추거나, 아예 안 보려면 'off' 처리
       'no-unused-vars': [
         'warn', // 혹은 'off'

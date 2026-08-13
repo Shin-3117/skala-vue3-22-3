@@ -22,16 +22,16 @@ const router = useRouter()
 const configStore = useConfigStore()
 
 const weatherIconMap = {
-  맑음: getAssetUrl('/assets/sunny.jpg'),
-  구름많음: getAssetUrl('/assets/cloudy.jpg'),
-  흐림: getAssetUrl('/assets/cloudy.jpg'),
-  비: getAssetUrl('/assets/rainy.jpg'),
-  소나기: getAssetUrl('/assets/rainy.jpg'),
+  맑음: getAssetUrl('/assets/sunny.webp'),
+  구름많음: getAssetUrl('/assets/cloudy.webp'),
+  흐림: getAssetUrl('/assets/cloudy.webp'),
+  비: getAssetUrl('/assets/rainy.webp'),
+  소나기: getAssetUrl('/assets/rainy.webp'),
 }
 
 const statusImage = computed(() => {
-  if (!props.featuredCity) return getAssetUrl('/assets/sunny.jpg')
-  return weatherIconMap[props.featuredCity.status] || getAssetUrl('/assets/sunny.jpg')
+  if (!props.featuredCity) return getAssetUrl('/assets/sunny.webp')
+  return weatherIconMap[props.featuredCity.status] || getAssetUrl('/assets/sunny.webp')
 })
 
 const filterCategories = [
@@ -53,8 +53,9 @@ const goToDetailPage = () => {
     <!-- Hero Wallpaper Background Image -->
     <div class="absolute inset-0 z-0">
       <img
-        :src="getAssetUrl('/assets/hero.jpg')"
+        :src="getAssetUrl('/assets/hero.webp')"
         alt="Weather Sky Backdrop"
+        fetchpriority="high"
         class="w-full h-full object-cover opacity-25 dark:opacity-15 transform group-hover:scale-105 transition-transform duration-700 ease-out"
       />
       <div class="absolute inset-0 bg-gradient-to-r from-white/95 via-white/85 to-sky-50/70 dark:from-slate-950/95 dark:via-slate-900/85 dark:to-slate-900/70"></div>
@@ -99,7 +100,7 @@ const goToDetailPage = () => {
 
           <button
             @click="goToDetailPage"
-            class="px-4 py-2 rounded-2xl bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold transition-all flex items-center gap-1.5 shadow-md shadow-sky-500/20 group/btn cursor-pointer"
+            class="px-4 py-2 rounded-2xl bg-sky-700 hover:bg-sky-800 text-white text-xs font-bold transition-all flex items-center gap-1.5 shadow-md shadow-sky-700/20 group/btn cursor-pointer"
           >
             <span>상세 날씨 분석 페이지</span>
             <ArrowUpRight class="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
@@ -138,7 +139,7 @@ const goToDetailPage = () => {
         class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer border"
         :class="
           statusFilter === cat.key
-            ? 'bg-sky-500 text-white border-sky-500 shadow-md shadow-sky-500/20'
+            ? 'bg-sky-700 text-white border-sky-700 shadow-md shadow-sky-700/20'
             : 'bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700'
         "
       >

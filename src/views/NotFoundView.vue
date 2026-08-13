@@ -36,7 +36,7 @@ const goHome = () => {
       <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
         <button
           @click="goHome"
-          class="w-full sm:w-auto px-6 py-3 rounded-2xl bg-sky-500 hover:bg-sky-600 text-white font-bold text-sm shadow-lg shadow-sky-500/30 transition-all flex items-center justify-center gap-2 cursor-pointer"
+          class="w-full sm:w-auto px-6 py-3 rounded-2xl bg-sky-700 hover:bg-sky-800 text-white font-bold text-sm shadow-lg shadow-sky-700/30 transition-all flex items-center justify-center gap-2 cursor-pointer"
         >
           <Home class="w-4 h-4" />
           <span>메인 날씨 대시보드로 이동</span>

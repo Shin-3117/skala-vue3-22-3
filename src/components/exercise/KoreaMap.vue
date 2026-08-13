@@ -89,7 +89,7 @@ onMounted(() => {
         </span>
       </div>
 
-      <div v-if="props.selectedCity" class="text-xs font-semibold text-slate-500 dark:text-slate-400 bg-sky-50 dark:bg-slate-800/80 px-2.5 rounded-lg border border-sky-100 dark:border-slate-700">
+      <div v-if="props.selectedCity" class="text-xs font-semibold text-slate-700 dark:text-slate-300 bg-sky-50 dark:bg-slate-800/80 px-2.5 rounded-lg border border-sky-100 dark:border-slate-700">
         다시 클릭 시 해제
       </div>
     </div>

@@ -28,15 +28,15 @@ const router = useRouter()
 const configStore = useConfigStore()
 
 const weatherIconMap = {
-  맑음: getAssetUrl('/assets/sunny.jpg'),
-  구름많음: getAssetUrl('/assets/cloudy.jpg'),
-  흐림: getAssetUrl('/assets/cloudy.jpg'),
-  비: getAssetUrl('/assets/rainy.jpg'),
-  소나기: getAssetUrl('/assets/rainy.jpg'),
+  맑음: getAssetUrl('/assets/sunny.webp'),
+  구름많음: getAssetUrl('/assets/cloudy.webp'),
+  흐림: getAssetUrl('/assets/cloudy.webp'),
+  비: getAssetUrl('/assets/rainy.webp'),
+  소나기: getAssetUrl('/assets/rainy.webp'),
 }
 
 const imageSrc = computed(() => {
-  return weatherIconMap[props.status] || getAssetUrl('/assets/sunny.jpg')
+  return weatherIconMap[props.status] || getAssetUrl('/assets/sunny.webp')
 })
 
 const handleSelect = (event) => {

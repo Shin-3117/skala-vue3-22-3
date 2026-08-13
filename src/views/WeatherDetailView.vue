@@ -29,16 +29,16 @@ const cityIdParam = computed(() => route.params.cityId)
 const cityData = computed(() => weatherStore.getCityByIdOrName(cityIdParam.value))
 
 const weatherIconMap = {
-  맑음: getAssetUrl('/assets/sunny.jpg'),
-  구름많음: getAssetUrl('/assets/cloudy.jpg'),
-  흐림: getAssetUrl('/assets/cloudy.jpg'),
-  비: getAssetUrl('/assets/rainy.jpg'),
-  소나기: getAssetUrl('/assets/rainy.jpg'),
+  맑음: getAssetUrl('/assets/sunny.webp'),
+  구름많음: getAssetUrl('/assets/cloudy.webp'),
+  흐림: getAssetUrl('/assets/cloudy.webp'),
+  비: getAssetUrl('/assets/rainy.webp'),
+  소나기: getAssetUrl('/assets/rainy.webp'),
 }
 
 const imageSrc = computed(() => {
-  if (!cityData.value) return getAssetUrl('/assets/sunny.jpg')
-  return weatherIconMap[cityData.value.status] || getAssetUrl('/assets/sunny.jpg')
+  if (!cityData.value) return getAssetUrl('/assets/sunny.webp')
+  return weatherIconMap[cityData.value.status] || getAssetUrl('/assets/sunny.webp')
 })
 
 const goBack = () => {
@@ -48,13 +48,13 @@ const goBack = () => {
 
 <template>
   <div class="min-h-screen bg-gradient-to-br from-sky-50 via-blue-50/50 to-indigo-50/40 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 text-slate-800 dark:text-slate-100 transition-colors duration-300 py-8 px-4 sm:px-6 lg:px-10">
-    <div class="max-w-5xl mx-auto flex flex-col gap-6">
+    <main class="max-w-5xl mx-auto flex flex-col gap-6">
 
       <!-- Navigation Header Bar -->
       <nav class="flex items-center justify-between p-4 rounded-2xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border border-sky-100 dark:border-slate-800 shadow-md">
         <button
           @click="goBack"
-          class="flex items-center gap-2 px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-600 text-white font-bold text-xs sm:text-sm shadow-md shadow-sky-500/20 transition-all cursor-pointer"
+          class="flex items-center gap-2 px-4 py-2 rounded-xl bg-sky-700 hover:bg-sky-800 text-white font-bold text-xs sm:text-sm shadow-md shadow-sky-700/20 transition-all cursor-pointer"
         >
           <ArrowLeft class="w-4 h-4" />
           <span>목록으로 돌아가기</span>
@@ -98,7 +98,7 @@ const goBack = () => {
         </p>
         <button
           @click="goBack"
-          class="px-6 py-2.5 rounded-xl bg-sky-500 text-white font-bold text-sm hover:bg-sky-600 shadow-lg shadow-sky-500/30 transition-all"
+          class="px-6 py-2.5 rounded-xl bg-sky-700 text-white font-bold text-sm hover:bg-sky-800 shadow-lg shadow-sky-700/30 transition-all"
         >
           메인 대시보드로 이동
         </button>
@@ -186,7 +186,7 @@ const goBack = () => {
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div class="p-4 rounded-2xl bg-sky-50/80 dark:bg-slate-800/80 border border-sky-100 dark:border-slate-700 flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-sky-500 text-white flex items-center justify-center shrink-0 shadow-md">
+                <div class="w-10 h-10 rounded-xl bg-sky-700 text-white flex items-center justify-center shrink-0 shadow-md">
                   <Shirt class="w-5 h-5" />
                 </div>
                 <div>
@@ -198,7 +198,7 @@ const goBack = () => {
               </div>
 
               <div class="p-4 rounded-2xl bg-blue-50/80 dark:bg-slate-800/80 border border-blue-100 dark:border-slate-700 flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-blue-500 text-white flex items-center justify-center shrink-0 shadow-md">
+                <div class="w-10 h-10 rounded-xl bg-blue-700 text-white flex items-center justify-center shrink-0 shadow-md">
                   <Umbrella class="w-5 h-5" />
                 </div>
                 <div>
@@ -213,6 +213,6 @@ const goBack = () => {
         </div>
       </template>
 
-    </div>
+    </main>
   </div>
 </template>

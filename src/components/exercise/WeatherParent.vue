@@ -74,7 +74,7 @@ const refreshWeather = () => {
 
 <template>
   <div class="min-h-screen bg-sky-50/50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 transition-colors duration-300 py-8 px-4 sm:px-6 lg:px-10">
-    <article class="max-w-7xl mx-auto flex flex-col gap-6">
+    <main class="max-w-7xl mx-auto flex flex-col gap-6">
       <!-- 1. Global Header Navigation -->
       <HeaderNav />
 
@@ -114,7 +114,7 @@ const refreshWeather = () => {
             <button
               @click="handleReDetectLocation"
               :disabled="weatherStore.isDetectingLocation"
-              class="text-xs text-sky-600 dark:text-sky-400 hover:text-sky-800 dark:hover:text-sky-200 font-bold flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-sky-50 dark:bg-slate-800 border border-sky-200 dark:border-slate-700 transition-all cursor-pointer disabled:opacity-50"
+              class="text-xs text-sky-800 dark:text-sky-300 hover:text-sky-950 dark:hover:text-sky-200 font-bold flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-sky-50 dark:bg-slate-800 border border-sky-200 dark:border-slate-700 transition-all cursor-pointer disabled:opacity-50"
               title="현재 내 접속 위치 재감지"
             >
               <Navigation class="w-3.5 h-3.5" :class="{ 'animate-spin': weatherStore.isDetectingLocation }" />
@@ -160,6 +160,6 @@ const refreshWeather = () => {
           <span>날씨 데이터 새로고침</span>
         </button>
       </footer>
-    </article>
+    </main>
   </div>
 </template>

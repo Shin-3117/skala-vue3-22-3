@@ -32,8 +32,6 @@ export const weatherDataList = REGIONS.map((region) => ({
   feelsLike: 26,
   humidity: 60,
   wind: 3.0,
-  dust: '좋음',
-  uv: '보통',
   description: `${region.name} 지역의 날씨 정보를 불러오는 중입니다...`,
 }))
 
@@ -91,8 +89,6 @@ export async function fetchCityWeatherFromApi(region) {
     feelsLike,
     humidity,
     wind,
-    dust: '좋음',
-    uv: '보통',
     description: `${region.name}의 현재 기상 상태는 '${rawDesc}'입니다. (OpenWeather 2.5 실시간 데이터)`,
     rawApiData: apiData,
   }

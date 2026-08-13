@@ -7,14 +7,9 @@ import {
   ArrowLeft,
   Sun,
   Moon,
-  Cloud,
-  CloudRain,
   Wind,
   Droplets,
-  ShieldCheck,
   Thermometer,
-  Calendar,
-  Clock,
   Shirt,
   Umbrella,
   AlertTriangle
@@ -43,31 +38,6 @@ const weatherIconMap = {
 const imageSrc = computed(() => {
   if (!cityData.value) return '/assets/sunny.jpg'
   return weatherIconMap[cityData.value.status] || '/assets/sunny.jpg'
-})
-
-const mockHourly = computed(() => {
-  if (!cityData.value) return []
-  const base = cityData.value.temp
-  return [
-    { time: '09:00', temp: base - 2, icon: 'sun', pop: '0%' },
-    { time: '12:00', temp: base + 2, icon: 'sun', pop: '10%' },
-    { time: '15:00', temp: base + 3, icon: 'cloud', pop: '20%' },
-    { time: '18:00', temp: base + 1, icon: 'cloud', pop: '30%' },
-    { time: '21:00', temp: base - 1, icon: 'rain', pop: '60%' },
-    { time: '00:00', temp: base - 3, icon: 'sun', pop: '10%' },
-  ]
-})
-
-const mockWeekly = computed(() => {
-  if (!cityData.value) return []
-  const base = cityData.value.temp
-  return [
-    { day: '오늘', status: cityData.value.status, high: base + 2, low: base - 4 },
-    { day: '내일', status: '맑음', high: base + 3, low: base - 3 },
-    { day: '글피', status: '구름많음', high: base + 1, low: base - 2 },
-    { day: '금요일', status: '비', high: base, low: base - 5 },
-    { day: '토요일', status: '맑음', high: base + 4, low: base - 2 },
-  ]
 })
 
 const goBack = () => {
@@ -155,7 +125,7 @@ const goBack = () => {
                 </span>
               </h1>
 
-              <p class="text-sm text-slate-600 dark:text-slate-300 font-medium mt-2 leading-relaxed max-w-xl">
+              <p class="text-sm text-slate-600 dark:text-slate-300 font-medium mt-1 leading-relaxed max-w-xl">
                 {{ cityData.description }}
               </p>
 
@@ -186,8 +156,8 @@ const goBack = () => {
           </div>
         </div>
 
-        <!-- Metric Gauges 4-Grid -->
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <!-- Metric Gauges Grid -->
+        <div class="grid grid-cols-2 gap-4">
           <div class="p-5 rounded-2xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border border-sky-100 dark:border-slate-800 shadow-lg flex flex-col items-center text-center">
             <div class="w-10 h-10 rounded-xl bg-sky-100 dark:bg-sky-950 text-sky-600 dark:text-sky-400 flex items-center justify-center mb-2">
               <Droplets class="w-5 h-5" />
@@ -203,124 +173,40 @@ const goBack = () => {
             <span class="text-xs text-slate-400 font-semibold">풍속</span>
             <span class="text-lg font-bold text-slate-800 dark:text-slate-100 mt-0.5">{{ cityData.wind }} m/s</span>
           </div>
-
-          <div class="p-5 rounded-2xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border border-sky-100 dark:border-slate-800 shadow-lg flex flex-col items-center text-center">
-            <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-2">
-              <ShieldCheck class="w-5 h-5" />
-            </div>
-            <span class="text-xs text-slate-400 font-semibold">미세먼지</span>
-            <span class="text-lg font-bold text-emerald-600 dark:text-emerald-400 mt-0.5">{{ cityData.dust }}</span>
-          </div>
-
-          <div class="p-5 rounded-2xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border border-sky-100 dark:border-slate-800 shadow-lg flex flex-col items-center text-center">
-            <div class="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-950 text-amber-600 dark:text-amber-400 flex items-center justify-center mb-2">
-              <Sun class="w-5 h-5" />
-            </div>
-            <span class="text-xs text-slate-400 font-semibold">자외선 지수</span>
-            <span class="text-lg font-bold text-amber-600 dark:text-amber-400 mt-0.5">{{ cityData.uv }}</span>
-          </div>
         </div>
 
-        <!-- Hourly Timeline Chart Section -->
-        <div class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border border-sky-100 dark:border-slate-800 rounded-3xl p-6 shadow-xl">
-          <div class="flex items-center justify-between mb-4">
-            <h2 class="text-base font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
-              <Clock class="w-5 h-5 text-sky-600 dark:text-sky-400" />
-              오늘의 시간대별 기온 예보
-            </h2>
-            <span class="text-xs text-slate-400">3시간 간격 업데이트</span>
-          </div>
-
-          <div class="grid grid-cols-3 sm:grid-cols-6 gap-3">
-            <div
-              v-for="item in mockHourly"
-              :key="item.time"
-              class="flex flex-col items-center p-3 rounded-2xl bg-sky-50/60 dark:bg-slate-800/60 border border-sky-100 dark:border-slate-700 hover:bg-sky-100/60 dark:hover:bg-slate-700/60 transition-colors"
-            >
-              <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">{{ item.time }}</span>
-              <Sun v-if="item.icon === 'sun'" class="w-6 h-6 text-amber-500 my-2" />
-              <CloudRain v-else-if="item.icon === 'rain'" class="w-6 h-6 text-blue-500 my-2" />
-              <Cloud v-else class="w-6 h-6 text-slate-400 my-2" />
-              <span class="text-base font-bold text-slate-800 dark:text-slate-100">{{ configStore.getTemp(item.temp) }}{{ configStore.unitSymbol() }}</span>
-              <span class="text-[10px] text-blue-500 dark:text-blue-400 font-medium mt-1">강수 {{ item.pop }}</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Weekly & Living Tips Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <!-- 5-Day Weekly Forecast -->
-          <div class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border border-sky-100 dark:border-slate-800 rounded-3xl p-6 shadow-xl">
+        <!-- Living & Clothing Tips Card -->
+        <div class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border border-sky-100 dark:border-slate-800 rounded-3xl p-6 shadow-xl flex flex-col justify-between">
+          <div>
             <h2 class="text-base font-bold text-slate-900 dark:text-slate-100 mb-4 flex items-center gap-2">
-              <Calendar class="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
-              주간 기상 예보
+              <Shirt class="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+              생활 및 복장 추천 가이드
             </h2>
-            <div class="space-y-3">
-              <div
-                v-for="item in mockWeekly"
-                :key="item.day"
-                class="flex items-center justify-between py-2.5 px-4 rounded-xl bg-slate-50/80 dark:bg-slate-800/80 border border-slate-100 dark:border-slate-700 text-sm"
-              >
-                <span class="font-bold text-slate-700 dark:text-slate-200 w-16">{{ item.day }}</span>
-                <span class="text-slate-600 dark:text-slate-300 flex items-center gap-1.5 w-24">
-                  <Sun v-if="item.status === '맑음'" class="w-4 h-4 text-amber-500" />
-                  <CloudRain v-else-if="item.status === '비' || item.status === '소나기'" class="w-4 h-4 text-blue-500" />
-                  <Cloud v-else class="w-4 h-4 text-slate-400" />
-                  {{ item.status }}
-                </span>
-                <div class="flex items-center gap-2">
-                  <span class="text-slate-400 text-xs font-mono">{{ configStore.getTemp(item.low) }}{{ configStore.unitSymbol() }}</span>
-                  <div class="w-20 h-2 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
-                    <div class="h-full bg-gradient-to-r from-sky-400 to-amber-500 rounded-full" style="width: 75%"></div>
-                  </div>
-                  <span class="text-slate-900 dark:text-slate-100 font-bold font-mono">{{ configStore.getTemp(item.high) }}{{ configStore.unitSymbol() }}</span>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="p-4 rounded-2xl bg-sky-50/80 dark:bg-slate-800/80 border border-sky-100 dark:border-slate-700 flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-sky-500 text-white flex items-center justify-center shrink-0 shadow-md">
+                  <Shirt class="w-5 h-5" />
+                </div>
+                <div>
+                  <span class="text-xs font-bold text-sky-800 dark:text-sky-300">추천 복장</span>
+                  <p class="text-xs text-slate-600 dark:text-slate-300 font-medium mt-0.5">
+                    {{ cityData.temp >= 25 ? '가벼운 반팔, 얇은 셔츠 및 햇빛 차단 모자' : '긴팔 겉옷 및 얇은 가디건' }}
+                  </p>
                 </div>
               </div>
-            </div>
-          </div>
 
-          <!-- Living & Clothing Tips -->
-          <div class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border border-sky-100 dark:border-slate-800 rounded-3xl p-6 shadow-xl flex flex-col justify-between">
-            <div>
-              <h2 class="text-base font-bold text-slate-900 dark:text-slate-100 mb-4 flex items-center gap-2">
-                <Shirt class="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
-                생활 및 복장 추천 지수
-              </h2>
-
-              <div class="space-y-3">
-                <div class="p-3.5 rounded-2xl bg-sky-50/80 dark:bg-slate-800/80 border border-sky-100 dark:border-slate-700 flex items-center gap-3">
-                  <div class="w-9 h-9 rounded-xl bg-sky-500 text-white flex items-center justify-center shrink-0">
-                    <Shirt class="w-5 h-5" />
-                  </div>
-                  <div>
-                    <span class="text-xs font-bold text-sky-800 dark:text-sky-300">추천 복장</span>
-                    <p class="text-xs text-slate-600 dark:text-slate-300 font-medium">
-                      {{ cityData.temp >= 25 ? '가벼운 반팔, 얇은 셔츠 및 햇빛 차단 모자' : '긴팔 겉옷 및 얇은 가디건' }}
-                    </p>
-                  </div>
+              <div class="p-4 rounded-2xl bg-blue-50/80 dark:bg-slate-800/80 border border-blue-100 dark:border-slate-700 flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-blue-500 text-white flex items-center justify-center shrink-0 shadow-md">
+                  <Umbrella class="w-5 h-5" />
                 </div>
-
-                <div class="p-3.5 rounded-2xl bg-blue-50/80 dark:bg-slate-800/80 border border-blue-100 dark:border-slate-700 flex items-center gap-3">
-                  <div class="w-9 h-9 rounded-xl bg-blue-500 text-white flex items-center justify-center shrink-0">
-                    <Umbrella class="w-5 h-5" />
-                  </div>
-                  <div>
-                    <span class="text-xs font-bold text-blue-800 dark:text-blue-300">우산 지수</span>
-                    <p class="text-xs text-slate-600 dark:text-slate-300 font-medium">
-                      {{ cityData.status.includes('비') || cityData.status.includes('소나기') ? '비 소식이 있습니다. 접이식 우산을 지참하세요!' : '우산 없이 쾌적하게 다닐 수 있습니다.' }}
-                    </p>
-                  </div>
+                <div>
+                  <span class="text-xs font-bold text-blue-800 dark:text-blue-300">우산지수 가이드</span>
+                  <p class="text-xs text-slate-600 dark:text-slate-300 font-medium mt-0.5">
+                    {{ cityData.status.includes('비') || cityData.status.includes('소나기') ? '비 소식이 있습니다. 접이식 우산을 지참하세요!' : '우산 없이 쾌적하게 다닐 수 있습니다.' }}
+                  </p>
                 </div>
               </div>
-            </div>
-
-            <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800 text-center">
-              <button
-                @click="goBack"
-                class="w-full py-3 rounded-2xl bg-slate-900 dark:bg-sky-500 hover:bg-slate-800 dark:hover:bg-sky-600 text-white font-bold text-sm shadow-md transition-all cursor-pointer"
-              >
-                전국 지도 대시보드로 돌아가기
-              </button>
             </div>
           </div>
         </div>

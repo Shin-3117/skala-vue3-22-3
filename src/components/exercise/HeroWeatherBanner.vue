@@ -6,7 +6,6 @@ import {
   MapPin,
   Wind,
   Droplets,
-  ShieldCheck,
   Sun,
   Sparkles,
   ArrowUpRight
@@ -95,12 +94,6 @@ const goToDetailPage = () => {
             <Wind class="w-4 h-4 text-indigo-500 dark:text-indigo-400" />
             <span class="text-slate-500 dark:text-slate-400 font-medium">풍속</span>
             <span class="font-bold text-slate-800 dark:text-slate-100">{{ featuredCity.wind || 3.2 }}m/s</span>
-          </div>
-
-          <div class="px-3.5 py-2 rounded-2xl bg-white/90 dark:bg-slate-800/90 border border-slate-200/80 dark:border-slate-700/80 shadow-sm flex items-center gap-2 text-xs">
-            <ShieldCheck class="w-4 h-4 text-emerald-500 dark:text-emerald-400" />
-            <span class="text-slate-500 dark:text-slate-400 font-medium">미세먼지</span>
-            <span class="font-bold text-emerald-600 dark:text-emerald-400">{{ featuredCity.dust || '좋음' }}</span>
           </div>
 
           <button

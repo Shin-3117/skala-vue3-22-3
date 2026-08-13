@@ -49,23 +49,9 @@ onUnmounted(() => {
             <h1 class="text-2xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-sky-600 via-blue-600 to-indigo-700 dark:from-sky-400 dark:via-blue-400 dark:to-indigo-300">
               SkyCast
             </h1>
-            <span class="px-2.5 py-0.5 rounded-full bg-sky-100 dark:bg-sky-950 text-sky-700 dark:text-sky-300 text-xs font-bold border border-sky-200 dark:border-sky-800">
-              LIVE
-            </span>
           </div>
-          <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">대한민국 실시간 전국 날씨 대시보드</p>
+          <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">대한민국 전국 날씨 대시보드</p>
         </div>
-      </div>
-
-      <!-- Weather Ticker / Announcement -->
-      <div class="hidden lg:flex items-center gap-2 px-4 py-2 rounded-2xl bg-sky-50/80 dark:bg-slate-800/80 border border-sky-100 dark:border-slate-700 text-xs text-slate-700 dark:text-slate-300">
-        <span class="flex h-2 w-2 relative">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-2 w-2 bg-sky-500"></span>
-        </span>
-        <Bell class="w-3.5 h-3.5 text-amber-500" />
-        <span class="font-bold text-slate-900 dark:text-slate-100">기상 안내:</span>
-        <span class="text-slate-600 dark:text-slate-300">전국 주요 도시는 쾌청하며 미세먼지 [좋음] 수준입니다.</span>
       </div>
 
       <!-- Controls & Live Clock -->

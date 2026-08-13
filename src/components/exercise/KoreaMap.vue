@@ -75,8 +75,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <Card class="map-card glass-card border border-slate-200 dark:border-slate-800 rounded-2xl bg-white/80 dark:bg-slate-900/80">
-    <div class="selection-panel flex items-center justify-between">
+  <Card class="map-card glass-card border border-slate-200 dark:border-slate-800 rounded-2xl bg-white/80 dark:bg-slate-900/80 p-4 flex flex-col gap-3">
+    <div class="selection-panel flex items-center justify-between p-2.5 px-3.5 rounded-[14px] bg-slate-100/90 dark:bg-slate-800/90 border border-slate-200/90 dark:border-slate-700/90">
       <div class="flex items-center gap-2 text-sm font-bold text-slate-800 dark:text-slate-100">
         <Map class="w-4 h-4 text-sky-600 dark:text-sky-400" />
         <span v-if="props.selectedCity" class="text-sky-700 dark:text-sky-300 flex items-center gap-1">
@@ -89,7 +89,7 @@ onMounted(() => {
         </span>
       </div>
 
-      <div v-if="props.selectedCity" class="text-xs font-semibold text-slate-500 dark:text-slate-400 bg-sky-50 dark:bg-slate-800 px-2.5 rounded-lg border border-sky-100 dark:border-slate-700">
+      <div v-if="props.selectedCity" class="text-xs font-semibold text-slate-500 dark:text-slate-400 bg-sky-50 dark:bg-slate-800/80 px-2.5 rounded-lg border border-sky-100 dark:border-slate-700">
         다시 클릭 시 해제
       </div>
     </div>
@@ -103,16 +103,7 @@ onMounted(() => {
   width: 100%;
   max-width: 700px;
   height: var(--panel-height);
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(12px);
-}
-
-:global(.dark) .map-card {
-  background: rgba(15, 23, 42, 0.8);
 }
 
 /* 남은 공간만큼만 지도를 그려서 카드 높이가 늘어나지 않게 합니다. */
@@ -132,43 +123,54 @@ onMounted(() => {
   filter: drop-shadow(0 4px 12px rgba(14, 165, 233, 0.08));
 }
 
+:global(.dark) .map-wrapper :deep(svg),
+:global(html.dark) .map-wrapper :deep(svg) {
+  filter: drop-shadow(0 4px 16px rgba(14, 165, 233, 0.15));
+}
+
 .map-wrapper :deep(.map-path) {
   cursor: pointer;
-  fill: #e2e8f0;
+  fill: #cbd5e1;
   stroke: #94a3b8;
   stroke-width: 1.2;
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-:global(.dark) .map-wrapper :deep(.map-path) {
+:global(.dark) .map-wrapper :deep(.map-path),
+:global(html.dark) .map-wrapper :deep(.map-path) {
   fill: #334155;
   stroke: #475569;
 }
 
 .map-wrapper :deep(.map-path:hover),
 .map-wrapper :deep(.map-path.is-hovered) {
-  fill: #38bdf8;
-  stroke: #0284c7;
-  stroke-width: 2;
+  fill: #38bdf8 !important;
+  stroke: #0284c7 !important;
+  stroke-width: 2 !important;
   filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.5));
 }
 
+:global(.dark) .map-wrapper :deep(.map-path:hover),
+:global(.dark) .map-wrapper :deep(.map-path.is-hovered),
+:global(html.dark) .map-wrapper :deep(.map-path:hover),
+:global(html.dark) .map-wrapper :deep(.map-path.is-hovered) {
+  fill: #38bdf8 !important;
+  stroke: #38bdf8 !important;
+  filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.7));
+}
+
 .map-wrapper :deep(.map-path.is-active) {
-  fill: #f59e0b;
-  stroke: #d97706;
-  stroke-width: 2.5;
+  fill: #f59e0b !important;
+  stroke: #d97706 !important;
+  stroke-width: 2.5 !important;
   filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.7));
 }
 
-.selection-panel {
-  padding: 10px 14px;
-  border-radius: 14px;
-  background: rgba(241, 245, 249, 0.9);
-  border: 1px solid rgba(226, 232, 240, 0.9);
-}
-
-:global(.dark) .selection-panel {
-  background: rgba(30, 41, 59, 0.9);
-  border-color: rgba(51, 65, 85, 0.9);
+:global(.dark) .map-wrapper :deep(.map-path.is-active),
+:global(html.dark) .map-wrapper :deep(.map-path.is-active) {
+  fill: #f59e0b !important;
+  stroke: #fbbf24 !important;
+  stroke-width: 2.5 !important;
+  filter: drop-shadow(0 0 12px rgba(245, 158, 11, 0.8));
 }
 </style>

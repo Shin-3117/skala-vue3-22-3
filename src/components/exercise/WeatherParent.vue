@@ -75,11 +75,11 @@ const refreshWeather = () => {
       >
         <SearchBar :search-query="searchQuery" @update-query="handleUpdateQuery" />
 
-        <div class="mt-4 p-4 rounded-2xl bg-white/90 border border-slate-200 flex items-center justify-between text-xs sm:text-sm font-medium">
-          <div class="flex items-center gap-2 text-slate-600">
-            <Info class="w-4 h-4 text-sky-600" />
+        <div class="mt-4 p-4 rounded-2xl bg-white/90 dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs sm:text-sm font-medium">
+          <div class="flex items-center gap-2 text-slate-600 dark:text-slate-300">
+            <Info class="w-4 h-4 text-sky-600 dark:text-sky-400" />
             <span>선택된 도시:</span>
-            <span class="font-bold text-sky-700 px-2.5 py-0.5 rounded-lg bg-sky-100 border border-sky-200">
+            <span class="font-bold text-sky-700 dark:text-sky-300 px-2.5 py-0.5 rounded-lg bg-sky-100 dark:bg-sky-950 border border-sky-200 dark:border-sky-800">
               {{ selectedCityInfo || '선택 없음 (전체 보기)' }}
             </span>
           </div>
@@ -87,7 +87,7 @@ const refreshWeather = () => {
           <button
             v-if="selectedCityInfo || searchQuery"
             @click="toggleSelection(selectedCityInfo)"
-            class="text-xs text-slate-500 hover:text-slate-800 underline cursor-pointer font-bold"
+            class="text-xs text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 underline cursor-pointer font-bold"
           >
             선택 초기화
           </button>
@@ -113,14 +113,7 @@ const refreshWeather = () => {
 
       <!-- 5. Footer -->
       <footer class="mt-8 pt-6 border-t border-slate-200 text-center text-xs text-slate-500 font-medium flex flex-col sm:flex-row items-center justify-between gap-2">
-        <p>© 2026 SkyCast Weather Intelligence. 모든 기상 정보는 실시간 갱신됩니다.</p>
-        <div class="flex items-center gap-4">
-          <span class="hover:text-slate-700 cursor-pointer">기상청 연동</span>
-          <span>·</span>
-          <span class="hover:text-slate-700 cursor-pointer">개인정보 처리방침</span>
-          <span>·</span>
-          <span class="hover:text-slate-700 cursor-pointer">도움말</span>
-        </div>
+        <p>© 2026 SkyCast Weather Intelligence.</p>
       </footer>
     </article>
   </div>

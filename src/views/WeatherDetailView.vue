@@ -3,6 +3,7 @@ import { computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useWeatherStore } from '@/stores/weatherStore'
 import { useConfigStore } from '@/stores/configStore'
+import { getAssetUrl } from '@/lib/utils'
 import {
   ArrowLeft,
   Sun,
@@ -28,16 +29,16 @@ const cityIdParam = computed(() => route.params.cityId)
 const cityData = computed(() => weatherStore.getCityByIdOrName(cityIdParam.value))
 
 const weatherIconMap = {
-  맑음: '/assets/sunny.jpg',
-  구름많음: '/assets/cloudy.jpg',
-  흐림: '/assets/cloudy.jpg',
-  비: '/assets/rainy.jpg',
-  소나기: '/assets/rainy.jpg',
+  맑음: getAssetUrl('/assets/sunny.jpg'),
+  구름많음: getAssetUrl('/assets/cloudy.jpg'),
+  흐림: getAssetUrl('/assets/cloudy.jpg'),
+  비: getAssetUrl('/assets/rainy.jpg'),
+  소나기: getAssetUrl('/assets/rainy.jpg'),
 }
 
 const imageSrc = computed(() => {
-  if (!cityData.value) return '/assets/sunny.jpg'
-  return weatherIconMap[cityData.value.status] || '/assets/sunny.jpg'
+  if (!cityData.value) return getAssetUrl('/assets/sunny.jpg')
+  return weatherIconMap[cityData.value.status] || getAssetUrl('/assets/sunny.jpg')
 })
 
 const goBack = () => {

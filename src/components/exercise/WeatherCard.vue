@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useConfigStore } from '@/stores/configStore'
+import { getAssetUrl } from '@/lib/utils'
 import Button from '@/components/ui/button/Button.vue'
 import WeatherBadge from './WeatherBadge.vue'
 import {
@@ -27,15 +28,15 @@ const router = useRouter()
 const configStore = useConfigStore()
 
 const weatherIconMap = {
-  맑음: '/assets/sunny.jpg',
-  구름많음: '/assets/cloudy.jpg',
-  흐림: '/assets/cloudy.jpg',
-  비: '/assets/rainy.jpg',
-  소나기: '/assets/rainy.jpg',
+  맑음: getAssetUrl('/assets/sunny.jpg'),
+  구름많음: getAssetUrl('/assets/cloudy.jpg'),
+  흐림: getAssetUrl('/assets/cloudy.jpg'),
+  비: getAssetUrl('/assets/rainy.jpg'),
+  소나기: getAssetUrl('/assets/rainy.jpg'),
 }
 
 const imageSrc = computed(() => {
-  return weatherIconMap[props.status] || '/assets/sunny.jpg'
+  return weatherIconMap[props.status] || getAssetUrl('/assets/sunny.jpg')
 })
 
 const handleSelect = (event) => {

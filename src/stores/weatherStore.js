@@ -5,6 +5,7 @@ import {
   fetchAllCitiesWeather,
   getCityByIdOrName as findCity,
 } from '@/data/weatherData.js'
+import { detectUserLocation } from '@/lib/location.js'
 
 export const useWeatherStore = defineStore('weather', () => {
   const weatherList = ref(weatherDataList)
@@ -12,6 +13,10 @@ export const useWeatherStore = defineStore('weather', () => {
   const isLoaded = ref(false)
   const error = ref(null)
   const lastUpdated = ref(null)
+
+  // 사용자 위치 자동 감지 상태
+  const userLocation = ref(null)
+  const isDetectingLocation = ref(false)
 
   async function fetchWeather(force = false) {
     if (isLoading.value) return
@@ -33,6 +38,21 @@ export const useWeatherStore = defineStore('weather', () => {
     }
   }
 
+  // 사용자 위치 자동 감지 및 17개 지역 중 가장 가까운 지역 매핑
+  async function detectAndSelectLocation() {
+    isDetectingLocation.value = true
+    try {
+      const location = await detectUserLocation()
+      userLocation.value = location
+      return location.nearestRegion
+    } catch (err) {
+      console.error('사용자 위치 감지 오류:', err)
+      return null
+    } finally {
+      isDetectingLocation.value = false
+    }
+  }
+
   function getCityByIdOrName(query) {
     return findCity(query, weatherList.value)
   }
@@ -43,7 +63,10 @@ export const useWeatherStore = defineStore('weather', () => {
     isLoaded,
     error,
     lastUpdated,
+    userLocation,
+    isDetectingLocation,
     fetchWeather,
+    detectAndSelectLocation,
     getCityByIdOrName,
   }
 })

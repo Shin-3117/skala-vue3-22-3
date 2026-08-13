@@ -8,6 +8,7 @@ import Components from 'unplugin-vue-components/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/skala-vue3-22-3/',
   plugins: [
     vue(),
     tailwindcss(),

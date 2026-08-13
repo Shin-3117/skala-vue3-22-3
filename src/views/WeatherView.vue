@@ -1,5 +1,5 @@
 <script setup>
-import WeatherParent from '@/components/handsOn/WeatherParent.vue'
+import WeatherParent from '@/components/exercise/WeatherParent.vue'
 </script>
 
 <template>

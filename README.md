@@ -14,6 +14,7 @@
 5. [환경 변수 설정 (.env)](#-환경-변수-설정-env)
 6. [설치 및 배포 방법 (GitHub Pages)](#-설치-및-배포-방법-github-pages)
 7. [HandsOn 과제 요구사항 충족 평가](#-handson-과제-요구사항-충족-평가)
+8. [Lighthouse 검사 결과](#-lighthouse-검사-결과)
 
 ---
 
@@ -183,3 +184,14 @@ npm run deploy
 | | 외부 API 확장 | ✅ 완료 | IP/Geolocation 위치 자동 감지 API (`detectUserLocation`, `findNearestRegion`) 추가 구현 |
 | **7. Weather Refinement** | 스타일 다듬기 & 품질 관리 | ✅ 완료 | TailwindCSS v4, 다크 모드 최적화, ESLint/Oxlint (0 Errors, 0 Warnings) 검증 완료 |
 | **8. Build & Deployment** | 빌드 및 환경변수 격리 / 배포 | ✅ 완료 | GitHub Pages 주소([https://shin-3117.github.io/skala-vue3-22-3/](https://shin-3117.github.io/skala-vue3-22-3/)) 실시간 성공 배포 완료 |
+
+---
+
+## ⚡ Lighthouse 검사 결과
+
+| 카테고리 | 점수 | 주요 개선 사항 |
+| --- | :---: | --- |
+| 🚀 **Performance** | **99점** | WebP 이미지 변환 (2.1MB ➔ 96KB), LCP `fetchpriority="high"`, 폰트 최적화 |
+| ♿ **Accessibility** | **100점** | WCAG AA 명암비 (4.5:1 이상) 및 HTML5 `<main>` 랜드마크 적용 |
+| 🛡️ **Best Practices** | **100점** | 최신 웹 표준 및 보안 권장사항 완벽 준수 |
+| 🔍 **SEO** | **100점** | 메타 데이터 및 검색 엔진 수집 최적화 |

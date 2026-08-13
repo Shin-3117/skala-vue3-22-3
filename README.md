@@ -45,6 +45,6 @@ npm run lint
 
 # 프로젝트 설명
 
-tailwindcss 추가
-shadcn-vue 추가
-es-hangul 추가
+- tailwindcss 추가 : CSS 프레임워크
+- shadcn-vue 추가 : UI 라이브러리
+- es-hangul 추가 : 초성 검색 기능 구현

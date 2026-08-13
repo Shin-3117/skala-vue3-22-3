@@ -1,25 +1,27 @@
 # 🌤️ SkyCast Weather Intelligence (대한민국 17개 지역 실시간 기상 대시보드)
 
-> **Vue 3 (Composition API) + Vite + Pinia + Vue Router + Axios + OpenWeatherMap 2.5 API + TailwindCSS v4**로 구축된 웹 기상 대시보드 애플리케이션입니다.
+> **Vue 3 (Composition API) + Vite + Pinia + Vue Router + Axios + OpenWeatherMap 2.5 API + shadcn-vue + TailwindCSS v4**로 구축된 웹 기상 대시보드 애플리케이션입니다.
+> 
+> 🔗 **실시간 라이브 배포 주소**: [https://shin-3117.github.io/skala-vue3-22-3/](https://shin-3117.github.io/skala-vue3-22-3/)
 
 ---
 
 ## 📌 목차
 1. [프로젝트 소개](#-프로젝트-소개)
 2. [주요 기능](#-주요-기능)
-3. [기술 스택](#-기술-스택)
+3. [기술 스택 및 외부 UI 라이브러리](#-기술-스택-및-외부-ui-라이브러리)
 4. [프로젝트 구조](#-프로젝트-구조)
 5. [환경 변수 설정 (.env)](#-환경-변수-설정-env)
-6. [설치 및 실행 방법](#-설치-및-실행-방법)
+6. [설치 및 배포 방법 (GitHub Pages)](#-설치-및-배포-방법-github-pages)
 7. [HandsOn 과제 요구사항 충족 평가](#-handson-과제-요구사항-충족-평가)
 
 ---
 
 ## 🌤️ 프로젝트 소개
 
-**SkyCast Weather Intelligence**는 OpenWeatherMap 2.5 API를 기반으로 대한민국 17개 주요 행정구역(서울, 부산, 대구, 인천, 광주, 대전, 울산, 세종, 경기, 충북, 충남, 전북, 전남, 경북, 경남, 제주, 강원)의 기상 정보를 제공하는 웹 애플리케이션입니다.
+**SkyCast Weather Intelligence**는 OpenWeatherMap 2.5 API를 기반으로 대한민국 17개 주요 행정구역(서울, 부산, 대구, 인천, 광주, 대전, 울산, 세종, 경기, 충북, 충남, 전북, 전남, 경북, 경남, 제주, 강원)의 기상 정보를 실시간으로 제공하는 웹 애플리케이션입니다.
 
-초성 검색(es-hangul), SVG 기반 인터랙티브 대한민국 지도, 섭씨(℃)/화씨(℉) 단위 전환, 다크 모드, 그리고 IP/Geolocation 기반 **사용자 접속 위치 자동 감지 기능**을 탑재하고 있습니다.
+외부 UI 라이브러리로 `shadcn-vue`를 도입하여 카드, 버튼, 뱃지, 스크롤 영역 컴포넌트를 구축하였으며, 반투명 유리 스타일의 Glassmorphism 디자인, 초성 검색(es-hangul), SVG 기반 인터랙티브 대한민국 지도, 섭씨(℃)/화씨(℉) 단위 전환, 다크 모드, 그리고 IP/Geolocation 기반 **사용자 접속 위치 자동 감지 기능**을 탑재하고 있습니다.
 
 ---
 
@@ -47,20 +49,25 @@
 ### 6. 📱 동적 상세 페이지 (Vue Router Programmatic Navigation)
 - 도시별 상세보기 클릭 시 `/weather/:cityId` 동적 라우트로 이동하여 실시간 데이터 및 날씨 맞춤형 복장/우산 가이드를 제공합니다.
 
+### 7. 🎨 외부 UI 라이브러리 적용 (`shadcn-vue`)
+- **`shadcn-vue` 컴포넌트 시스템 구축**: `src/components/ui/` 폴더 내 `Card`, `Button`, `Badge`, `ScrollArea`, `Input`, `Label` 등 프리미엄 컴포넌트를 구성하여 사용합니다 (`components.json` 설정 기반).
+
 ---
 
-## 🛠️ 기술 스택
+## 🛠️ 기술 스택 및 외부 UI 라이브러리
 
-| 분야 | 기술 / 라이브러리 |
-| --- | --- |
-| **Core Framework** | Vue 3 (Composition API, `<script setup>`), Vite 8 |
-| **State Management** | Pinia 3 (`configStore`, `weatherStore`) |
-| **Routing** | Vue Router 5 (Lazy Loading, Catch-all Route) |
-| **HTTP Client** | Axios 1.19 (Instance, Interceptors) |
-| **Styling & UI** | TailwindCSS v4, Glassmorphic UI, Reka UI |
-| **Icons & Utilities** | Lucide Vue, `es-hangul` (초성 검색) |
-| **External APIs** | OpenWeatherMap 2.5 API, GeoJS / IP-API |
-| **Code Quality** | ESLint 10, Oxlint 1.60 |
+| 분야 | 기술 / 라이브러리                                          |
+| --- |------------------------------------------------------------|
+| **Core Framework** | Vue 3 (Composition API, `<script setup>`), Vite 8          |
+| **UI Library (외부)** | **`shadcn-vue`** (컴포넌트)                                |
+| **State Management** | Pinia 3 (`configStore`, `weatherStore`)                    |
+| **Routing** | Vue Router 5                                               |
+| **HTTP Client** | Axios 1.19                         |
+| **Styling & Design** | TailwindCSS v4          |
+| **Icons & Utilities** | Lucide Vue, `es-hangul` (초성 검색)                        |
+| **External APIs** | OpenWeatherMap 2.5 API, GeoJS / IP-API                     |
+| **Deployment** | GitHub Pages (`gh-pages`, `.nojekyll`, 동적 `getAssetUrl`) |
+| **Code Quality** | ESLint 10, Oxlint 1.60                                     |
 
 ---
 
@@ -69,10 +76,13 @@
 ```
 skala-vue3-22-3/
 ├── .env                  # 환경 변수 (OpenWeather API URL 및 API Key)
+├── components.json       # shadcn-vue 대시보드 설정 파일
 ├── eslint.config.js      # ESLint 설정
-├── vite.config.js        # Vite 및 Alias 설정 (@ -> src)
+├── vite.config.js        # Vite 및 Alias 설정 (base: '/skala-vue3-22-3/', @ -> src)
 ├── HandsOn.md            # 과제 요구사항 명세서
 ├── README.md             # 프로젝트 설명서
+├── public/
+│   └── .nojekyll         # GitHub Pages Jekyll 빌드 방지 파일
 └── src/
     ├── api/              # Axios 인스턴스 및 API 레이어
     │   ├── axios.js      # OpenWeather 2.5 전용 Axios 세팅 (appid interceptor)
@@ -83,11 +93,17 @@ skala-vue3-22-3/
     ├── lib/              # 공통 유틸리티
     │   ├── location.js   # Haversine 거리 계산 & GPS/IP 위치 감지 모듈
     │   ├── search.js     # 초성 검색 유틸리티 (es-hangul)
-    │   └── utils.js      # Tailwind 클래스 병합 유틸리티 (clsx, tailwind-merge)
+    │   └── utils.js      # Tailwind 클래스 병합(clsx) 및 동적 에셋 URL(getAssetUrl) 유틸리티
     ├── data/
     │   └── weatherData.js # 17개 한국 지역 좌표 정보 및 API 파싱 함수
     ├── components/
-    │   ├── ui/           # 공통 UI 부품 (Card, Button, Badge 등)
+    │   ├── ui/           # shadcn-vue 외부 UI 컴포넌트 폴더
+    │   │   ├── button/   # shadcn-vue Button
+    │   │   ├── card/     # shadcn-vue Card
+    │   │   ├── badge/    # shadcn-vue Badge
+    │   │   ├── scroll-area/ # shadcn-vue ScrollArea
+    │   │   ├── input/    # shadcn-vue Input
+    │   │   └── label/    # shadcn-vue Label
     │   └── exercise/     # 기상 대시보드 컴포넌트
     │       ├── HeaderNav.vue          # 상단 글로벌 내비게이션
     │       ├── HeroWeatherBanner.vue  # 메인 대표 기상 현황 하이라이트 배너
@@ -95,7 +111,7 @@ skala-vue3-22-3/
     │       ├── SearchBar.vue          # 한글 초성 지원 검색 바
     │       ├── WeatherList.vue        # 도시별 날씨 카드 목록
     │       ├── WeatherCard.vue        # 개별 도시 날씨 카드
-    │       ├── KoreaMap.vue           # 대한민국 인터랙티브 SVG 지도
+    │       ├── KoreaMap.vue           # 대한민국 인터랙티브 SVG 지도 (다크모드 지원)
     │       └── WeatherParent.vue      # 메인 날씨 대시보드 조립 부모 컴포넌트
     ├── views/            # 페이지 레벨 뷰 컴포넌트
     │   ├── WeatherView.vue        # 메인 경로 (/) 뷰
@@ -120,7 +136,7 @@ VITE_API_OPEN_WEATHER_API_KEY=your_open_weather_api_key_here
 
 ---
 
-## 💻 설치 및 실행 방법
+## 💻 설치 및 배포 방법 (GitHub Pages)
 
 ### 1. 패키지 설치
 ```bash
@@ -137,9 +153,9 @@ npm run dev
 npm run lint
 ```
 
-### 4. 프로덕션 빌드
+### 4. GitHub Pages 배포
 ```bash
-npm run build
+npm run deploy
 ```
 
 ---
@@ -156,15 +172,14 @@ npm run build
 | | 이벤트 & 상세보기 처리 | ✅ 완료 | 카드 클릭 선택 및 동적 라우터를 이용한 상세 페이지 이동 구현 |
 | **2. Weather Composition** | 반응형 상태 관리 (`ref`, `computed`) | ✅ 완료 | `searchQuery`, `selectedCityInfo`, `weatherList` 반응형 관리 |
 | | `computed` 필터링 | ✅ 완료 | `filteredWeatherList` (상태 필터 + 한글 초성 검색 결합) |
-| | `watch`, `watchEffect` 감시 | ✅ 완료 | `selectedCityInfo` 변경에 따른 지도/목록 동기화 및 테마 감시 |
+| | `watch`, `watchEffect` 감시 | ✅ 완료 | `selectedCityInfo` 감시 및 테마/지도 동기화 |
 | **3. Weather Component** | 컴포넌트 4개 이상 분리 | ✅ 완료 | `WeatherParent`, `BaseDashboardCard` (`<slot>`), `SearchBar`, `WeatherCard`, `KoreaMap`, `HeroWeatherBanner` 등 분리 완료 |
 | | 디자인 `<style scoped>` 분리 | ✅ 완료 | 모든 컴포넌트 스코프 스타일링 적용 |
 | **4. Weather Router** | Vue Router 설정 & Lazy Loading | ✅ 완료 | `router/index.js` 지연 로딩 및 Catch-all Route (`NotFoundView.vue`) 적용 |
-| | Programmatic Navigation | ✅ 완료 | `router.push('/weather/' + id)` 상세 이동 처리 |
-| | 동적 라우트 매칭 (`:cityId`) | ✅ 완료 | `WeatherDetailView.vue`에서 `route.params.cityId` 수신 및 실시간 API 데이터 바인딩 |
 | **5. Weather Store** | `configStore.js` (온도 단위 토글) | ✅ 완료 | `unit` (celsius/fahrenheit), `unitSymbol` (`℃`/`℉`), `toggleUnit` 구현 완료 |
 | | 테마 관리 & 추가 Store | ✅ 완료 | 다크 모드 스위칭 지원 및 `weatherStore.js` (Pinia) 추가 구현 |
-| **6. Weather UI Library & API** | OpenWeatherMap API 연동 | ✅ 완료 | Axios 전용 인스턴스, 요청 인터셉터를 통해 `appid` 포함 17개 지역 실시간 데이터 수집 |
+| **6. Weather UI Library & API** | **외부 UI Library 적용** | ✅ 완료 | **`shadcn-vue`** (컴포넌트) & **`reka-ui`** (코어 엔진) 적용 및 Glassmorphism 디자인 구축 |
+| | OpenWeatherMap API 연동 | ✅ 완료 | Axios 전용 인스턴스, 요청 인터셉터를 통해 `appid` 포함 17개 지역 실시간 데이터 수집 |
 | | 외부 API 확장 | ✅ 완료 | IP/Geolocation 위치 자동 감지 API (`detectUserLocation`, `findNearestRegion`) 추가 구현 |
 | **7. Weather Refinement** | 스타일 다듬기 & 품질 관리 | ✅ 완료 | TailwindCSS v4, 다크 모드 최적화, ESLint/Oxlint (0 Errors, 0 Warnings) 검증 완료 |
-| **8. Build & Deployment** | 빌드 및 환경변수 격리 | ✅ 완료 | `VITE_API_OPEN_WEATHER_API_KEY` 환경변수 격리 및 `npm run build` 정상 동작 검증 완료 |
+| **8. Build & Deployment** | 빌드 및 환경변수 격리 / 배포 | ✅ 완료 | GitHub Pages 주소([https://shin-3117.github.io/skala-vue3-22-3/](https://shin-3117.github.io/skala-vue3-22-3/)) 실시간 성공 배포 완료 |
